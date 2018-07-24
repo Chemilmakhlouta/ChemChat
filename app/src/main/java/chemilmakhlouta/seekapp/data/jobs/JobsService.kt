@@ -1,6 +1,5 @@
 package chemilmakhlouta.seekapp.data.jobs
 
-import chemilmakhlouta.seekapp.data.jobs.model.JobObjectResponse
 import chemilmakhlouta.seekapp.data.jobs.model.JobsListResponse
 import chemilmakhlouta.seekapp.domain.JobsRepository
 import chemilmakhlouta.seekapp.domain.model.JobObject
@@ -25,7 +24,7 @@ class JobsService @Inject constructor(retrofit: Retrofit) : JobsRepository {
 
 
     private interface JobsClient {
-        @GET("/v1")
+        @GET("/search")
         fun getJobs(): Single<JobsListResponse>
     }
 

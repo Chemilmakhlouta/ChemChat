@@ -24,7 +24,7 @@ class RetrofitModule {
     fun provideRetrofit(httpClient: OkHttpClient,
                         retrofitBuilder: Retrofit.Builder): Retrofit =
             retrofitBuilder.client(httpClient)
-                    .baseUrl("https://api.rss2json.com")
+                    .baseUrl("https://jobsearch-api-mobile.cloud.seek.com.au")
                     .build()
 
     @Provides

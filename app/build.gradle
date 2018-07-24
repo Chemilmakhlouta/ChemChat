@@ -39,7 +39,7 @@ kapt {
 }
 
 allOpen {
-    annotation("chemilmakhlouta.abcnewsproject.application.injection.annotation.Mockable")
+    annotation("chemilmakhlouta.seekapp.application.injection.annotation.Mockable")
 }
 
 dependencies {

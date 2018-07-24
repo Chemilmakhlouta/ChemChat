@@ -17,5 +17,5 @@ class JobsModule {
 
     @Provides
     @Singleton
-    fun provideNewsRepository(@Named(RetrofitModule.RETROFIT) retrofit: Retrofit): JobsRepository = JobsService(retrofit)
+    fun provideJobsRepository(@Named(RetrofitModule.RETROFIT) retrofit: Retrofit): JobsRepository = JobsService(retrofit)
 }

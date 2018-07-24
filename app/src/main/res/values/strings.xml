@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SeekApp</string>
+    <string name="seek">SEEK</string>
 </resources>

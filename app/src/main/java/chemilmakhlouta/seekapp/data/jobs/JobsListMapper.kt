@@ -6,16 +6,16 @@ import chemilmakhlouta.seekapp.domain.model.JobObject
 /**
  * Created by Chemil Makhlouta on 24/7/18.
  */
-fun mapToDomainJobsList(newsList: List<JobObjectResponse>?): List<JobObject> {
-    val mappedNewsList: MutableList<JobObject> = mutableListOf()
+fun mapToDomainJobsList(jobsList: List<JobObjectResponse>?): List<JobObject> {
+    val mappedJobsList: MutableList<JobObject> = mutableListOf()
 
-    newsList.let {
+    jobsList.let {
         it?.map {
-            JobObject(it.title)
+            JobObject(it.title, it.id, it.teaser)
         }?.let {
-            mappedNewsList.addAll(it)
+            mappedJobsList.addAll(it)
         }
     }
 
-    return mappedNewsList
+    return mappedJobsList
 }
