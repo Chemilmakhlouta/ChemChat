@@ -1,0 +1,91 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-allopen'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
+    defaultConfig {
+        applicationId "chemilmakhlouta.seekapp"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+ext {
+    androidSupportVersion = '26.+'
+    androidRoomVersion = '1.0.0'
+    daggerVersion = '2.7'
+    leakCanaryVersion = '1.4'
+    rxJavaVersion = '2.1.9'
+    rxAndroidVersion = '2.0.2'
+    retrofitVersion = '2.2.0'
+    spekVersion = '1.0.89'
+}
+
+kapt {
+    generateStubs = true
+}
+
+allOpen {
+    annotation("chemilmakhlouta.abcnewsproject.application.injection.annotation.Mockable")
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    compile "com.android.support:support-v4:$androidSupportVersion",
+            "com.android.support:design:$androidSupportVersion",
+            "com.android.support:cardview-v7:$androidSupportVersion",
+            "com.android.support:recyclerview-v7:$androidSupportVersion",
+            "com.android.support:customtabs:$androidSupportVersion",
+            "org.jetbrains.kotlin:kotlin-stdlib:1.1.1"
+
+    // Dagger (for dependency injection)
+
+    // Picasso (image loading)
+
+    // rxJava
+    compile "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
+            "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+
+    // Retrofit
+    compile "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
+            'com.squareup.okhttp3:logging-interceptor:3.4.1',
+            'com.squareup.retrofit2:converter-gson:2.0.2'
+
+    // Testing
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.1.1'
+    compile 'com.google.dagger:dagger:2.7'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.android.support:design:26.+'
+    compile 'com.android.support:support-vector-drawable:26.+'
+    testCompile 'org.jetbrains.kotlin:kotlin-test:1.1.1'
+    testCompile 'org.jetbrains.kotlin:kotlin-reflect:1.1.1'
+    testCompile 'junit:junit:4.12'
+    testCompile 'com.nhaarman:mockito-kotlin:0.9.0'
+    testCompile 'org.jetbrains.spek:spek-api:1.0.89'
+    testCompile 'org.jetbrains.spek:spek-junit-platform-engine:1.0.89'
+    testCompile 'org.junit.platform:junit-platform-runner:1.0.0-M2'
+    testCompile 'org.robolectric:robolectric:3.1.4'
+    testCompile 'org.hamcrest:hamcrest-all:1.3'
+    kapt 'com.google.dagger:dagger-compiler:2.7'
+}
