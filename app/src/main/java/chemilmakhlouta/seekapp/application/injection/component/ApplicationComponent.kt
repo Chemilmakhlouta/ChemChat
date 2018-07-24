@@ -5,6 +5,7 @@ import chemilmakhlouta.seekapp.application.injection.module.ActivityModule
 import chemilmakhlouta.seekapp.application.injection.module.ApplicationModule
 import chemilmakhlouta.seekapp.application.injection.module.JobsModule
 import chemilmakhlouta.seekapp.application.injection.module.RetrofitModule
+import chemilmakhlouta.seekapp.domain.JobsRepository
 import dagger.Component
 import javax.inject.Singleton
 

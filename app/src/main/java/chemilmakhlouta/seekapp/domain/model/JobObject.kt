@@ -1,5 +1,7 @@
 package chemilmakhlouta.seekapp.domain.model
 
 /**
- * Created by u206264 on 24/7/18.
+ * Created by Chemil Makhlouta on 24/7/18.
  */
+
+data class JobObject(val title: String)

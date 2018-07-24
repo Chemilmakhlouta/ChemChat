@@ -1,5 +1,7 @@
 package chemilmakhlouta.seekapp.application.injection.module
 
+import chemilmakhlouta.seekapp.data.jobs.JobsService
+import chemilmakhlouta.seekapp.domain.JobsRepository
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

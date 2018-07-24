@@ -2,6 +2,8 @@ package chemilmakhlouta.seekapp.application.injection.component
 
 import chemilmakhlouta.seekapp.application.injection.annotation.PerScreen
 import chemilmakhlouta.seekapp.application.injection.module.ActivityModule
+import chemilmakhlouta.seekapp.presentation.view.JobSearchActivity
+import chemilmakhlouta.seekapp.presentation.view.JobsListActivity
 import dagger.Component
 
 /**
