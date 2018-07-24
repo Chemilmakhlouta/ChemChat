@@ -1,5 +1,7 @@
 package chemilmakhlouta.seekapp.data.jobs
 
+import chemilmakhlouta.seekapp.data.jobs.model.JobObjectResponse
+import chemilmakhlouta.seekapp.data.jobs.model.JobsListResponse
 import chemilmakhlouta.seekapp.domain.JobsRepository
 import chemilmakhlouta.seekapp.domain.model.JobObject
 import io.reactivex.Single
@@ -18,13 +20,13 @@ class JobsService @Inject constructor(retrofit: Retrofit) : JobsRepository {
     private val client = retrofit.create(JobsClient::class.java)
 
     override fun getJobs(): Single<List<JobObject>> =
-            client.getJobs().map { listOf() }.subscribeOn(Schedulers.io())
+            client.getJobs().map { mapToDomainJobsList(it.data) }.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
 
 
     private interface JobsClient {
         @GET("/v1")
-        fun getJobs(): Single<JobObject>
+        fun getJobs(): Single<JobsListResponse>
     }
 
 }

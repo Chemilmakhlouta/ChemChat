@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import chemilmakhlouta.seekapp.R
 
 /**
- * Created by u206264 on 24/7/18.
+ * Created by Chemil Makhlouta on 24/7/18.
  */
 class JobSearchActivity : AppCompatActivity() {
 
