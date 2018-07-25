@@ -1,5 +1,6 @@
 package chemilmakhlouta.seekapp.presentation.presenter
 
+import android.util.Log
 import chemilmakhlouta.seekapp.application.Presenter
 import chemilmakhlouta.seekapp.domain.model.JobObject
 import chemilmakhlouta.seekapp.domain.usecase.GetJobsUseCase
@@ -58,18 +59,19 @@ class JobsListPresenter @Inject constructor(private val getJobsUseCase: GetJobsU
 
     private fun subscribeToGetJobs() {
         getJobsListObservable?.let {
-            if (getJobsListSubscription.isDisposed) {
-                getJobsListSubscription = it.subscribe(this::onJobsListSuccess, this::onJobsListFailure)
-            }
+            getJobsListSubscription = it.subscribe(this::onJobsListSuccess, this::onJobsListFailure)
         }
     }
 
-    private fun onJobsListSuccess(jobs: List<JobObject>) =
-            display.setUpJobsList(mutableListOf<JobObject>().apply {
-                addAll(jobs)
-            })
+    private fun onJobsListSuccess(jobs: List<JobObject>) {
+        Log.e("JobsListPresenter", "Get list success " + jobs.size)
+        display.setUpJobsList(mutableListOf<JobObject>().apply {
+            addAll(jobs)
+        })
+    }
 
     private fun onJobsListFailure(throwable: Throwable) {
+        Log.e("JobsListPresenter", "Get list failed")
         display.showError()
     }
     // endregion

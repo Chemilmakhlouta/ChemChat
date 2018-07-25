@@ -8,6 +8,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.http.GET
+import retrofit2.http.POST
 import javax.inject.Inject
 
 /**
