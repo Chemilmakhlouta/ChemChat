@@ -6,6 +6,7 @@ package chemilmakhlouta.seekapp.presentation.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +30,12 @@ class JobsListAdapter(private val context: Context) : RecyclerView.Adapter<Recyc
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val jobsItem = jobsList[position]
         with(holder.itemView) {
-            jobTitle.text = jobsItem.title
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                jobTitle.text = Html.fromHtml(jobsItem.title, Html.FROM_HTML_MODE_LEGACY)
+            } else {
+                jobTitle.text = Html.fromHtml(jobsItem.title)
+            }
             setOnClickListener { listItemClickListener.onJobsItemClicked(jobsItem.id) }
         }
     }

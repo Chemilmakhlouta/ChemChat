@@ -41,6 +41,11 @@ class JobsListActivity : BaseActivity(), JobsListPresenter.Display, JobsListPres
         jobsAdapter = JobsListAdapter(this)
         jobsAdapter.setJobsListItemClickListener(this)
         jobsList.adapter = jobsAdapter
+
+        intent?.let {
+            presenter.onIntentReceived(intent.getStringExtra(INTENT_EXTRA_JOB_KEYWORDS),
+                                       intent.getStringExtra(INTENT_EXTRA_JOB_LOCATION))
+        }
     }
 
     override fun inject(activityComponent: ActivityComponent) {

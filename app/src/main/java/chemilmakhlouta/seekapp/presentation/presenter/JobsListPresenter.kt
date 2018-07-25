@@ -17,6 +17,9 @@ class JobsListPresenter @Inject constructor(private val getJobsUseCase: GetJobsU
     private lateinit var display: Display
     private lateinit var router: Router
 
+    private lateinit var keywords: String
+    private lateinit var location: String
+
     private var getJobsListObservable: Single<List<JobObject>>? = null
     private var getJobsListSubscription = Disposables.disposed()
 
@@ -46,7 +49,7 @@ class JobsListPresenter @Inject constructor(private val getJobsUseCase: GetJobsU
     // region Private Functions
     private fun getJobs() {
         if (getJobsListObservable == null) {
-            getJobsListObservable = getJobsUseCase.getJobs()
+            getJobsListObservable = getJobsUseCase.getJobs(keywords, location)
                     .doOnSubscribe { display.showLoading() }
                     .doAfterTerminate {
                         display.hideLoading()
@@ -75,6 +78,11 @@ class JobsListPresenter @Inject constructor(private val getJobsUseCase: GetJobsU
         display.showError()
     }
     // endregion
+
+    fun onIntentReceived(keywords: String, location: String) {
+        this.keywords = keywords
+        this.location = location
+    }
 
     interface Display {
         fun showLoading()

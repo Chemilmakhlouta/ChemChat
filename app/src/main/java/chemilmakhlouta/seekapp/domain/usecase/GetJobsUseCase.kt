@@ -12,5 +12,6 @@ import javax.inject.Inject
 @Mockable
 class GetJobsUseCase @Inject constructor(private val jobsRepository: JobsRepository) {
 
-    fun getJobs(): Single<List<JobObject>> = jobsRepository.getJobs()
+    fun getJobs(keywords: String, location: String): Single<List<JobObject>> =
+            jobsRepository.getJobs(keywords, location)
 }
