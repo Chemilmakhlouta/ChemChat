@@ -1,6 +1,6 @@
-package chemilmakhlouta.seekapp.data.jobs
+package chemilmakhlouta.seekapp.data
 
-import chemilmakhlouta.seekapp.data.jobs.model.JobsListResponse
+import chemilmakhlouta.seekapp.data.model.JobsListResponse
 import chemilmakhlouta.seekapp.domain.JobsRepository
 import chemilmakhlouta.seekapp.domain.model.JobObject
 import io.reactivex.Single

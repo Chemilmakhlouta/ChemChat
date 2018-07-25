@@ -1,11 +1,12 @@
 package chemilmakhlouta.seekapp.presentation.presenter
 
 import chemilmakhlouta.seekapp.application.Presenter
+import javax.inject.Inject
 
 /**
  * Created by Chemil Makhlouta on 24/7/18.
  */
-class JobSearchPresenter : Presenter {
+class JobSearchPresenter @Inject constructor(): Presenter {
 
     private lateinit var display: Display
     private lateinit var router: Router

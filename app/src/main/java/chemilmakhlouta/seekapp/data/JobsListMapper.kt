@@ -1,6 +1,6 @@
-package chemilmakhlouta.seekapp.data.jobs
+package chemilmakhlouta.seekapp.data
 
-import chemilmakhlouta.seekapp.data.jobs.model.JobObjectResponse
+import chemilmakhlouta.seekapp.data.model.JobObjectResponse
 import chemilmakhlouta.seekapp.domain.model.JobObject
 
 /**
