@@ -2,6 +2,7 @@ package chemilmakhlouta.seekapp.presentation.view
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import chemilmakhlouta.seekapp.R
@@ -46,6 +47,8 @@ class JobsListActivity : BaseActivity(), JobsListPresenter.Display, JobsListPres
             presenter.onIntentReceived(intent.getStringExtra(INTENT_EXTRA_JOB_KEYWORDS),
                                        intent.getStringExtra(INTENT_EXTRA_JOB_LOCATION))
         }
+
+        swipeContainer.setOnRefreshListener { presenter.onSwipeToRefresh() }
     }
 
     override fun inject(activityComponent: ActivityComponent) {
@@ -69,9 +72,10 @@ class JobsListActivity : BaseActivity(), JobsListPresenter.Display, JobsListPres
     override fun showError() {
     }
 
-    override fun navigateToJob(url: String) {
-    }
+    override fun navigateToJob(id: Int) =
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.seek.com.au/job/" + id)))
 
     override fun onJobsItemClicked(id: Int) {
+        presenter.onJobClicked(id)
     }
 }

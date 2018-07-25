@@ -9,6 +9,7 @@
         android:id="@+id/jobTitle"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:hint="@string/keywords"
         android:inputType="text"/>
 
     <EditText
@@ -16,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
+        android:hint="@string/location"
         android:inputType="text"/>
 
     <Button
@@ -23,6 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
-        android:text="@string/seek"/>
+        android:background="@color/colorPrimary"
+        android:text="@string/seek"
+        android:textColor="@color/white"/>
 
 </LinearLayout>

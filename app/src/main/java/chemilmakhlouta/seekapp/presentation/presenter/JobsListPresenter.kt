@@ -43,7 +43,7 @@ class JobsListPresenter @Inject constructor(private val getJobsUseCase: GetJobsU
     // region UI Interactions
     fun onSwipeToRefresh() = getJobs()
 
-    fun onJobClicked(url: String) = router.navigateToJob(url)
+    fun onJobClicked(id: Int) = router.navigateToJob(id)
     // endregion
 
     // region Private Functions
@@ -92,6 +92,6 @@ class JobsListPresenter @Inject constructor(private val getJobsUseCase: GetJobsU
     }
 
     interface Router {
-        fun navigateToJob(url: String)
+        fun navigateToJob(id: Int)
     }
 }
