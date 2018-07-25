@@ -24,7 +24,8 @@ class JobsListPresenterTest : SubjectSpek<JobsListPresenter>(
 
             var getJobsUseCase: GetJobsUseCase
 
-            val mockUrl = "google.com"
+            val mockKeywords = "keywords"
+            val mockLocation = "location"
 
             val mockJobsSuccess = Single.just(listOf(JobObject("title", 123, "teaser")))
             var mockJobsResponse = mockJobsSuccess
@@ -34,10 +35,11 @@ class JobsListPresenterTest : SubjectSpek<JobsListPresenter>(
 
                 val presenter = JobsListPresenter(getJobsUseCase)
 
-                whenever(getJobsUseCase.getJobs()).doReturn(mockJobsResponse)
+                whenever(getJobsUseCase.getJobs(mockKeywords, mockLocation)).doReturn(mockJobsResponse)
                 display = mock()
                 router = mock()
                 presenter.inject(display, router)
+                presenter.onIntentReceived(mockKeywords, mockLocation)
                 presenter
             }
 
@@ -56,9 +58,9 @@ class JobsListPresenterTest : SubjectSpek<JobsListPresenter>(
 
                 on("clicking a job") {
                     it("opens the job item's link in a chrome custom tab") {
-                        subject.onJobClicked(mockUrl)
+                        subject.onJobClicked(0)
 
-                        verify(router).navigateToJob(mockUrl)
+                        verify(router).navigateToJob(0)
                     }
                 }
 
@@ -80,5 +82,4 @@ class JobsListPresenterTest : SubjectSpek<JobsListPresenter>(
                     }
                 }
             }
-
         })

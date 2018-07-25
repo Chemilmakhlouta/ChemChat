@@ -22,8 +22,6 @@ class JobsListAdapter(private val context: Context) : RecyclerView.Adapter<Recyc
     private var jobsList: List<JobObject> = emptyList()
 
     private lateinit var listItemClickListener: OnJobsListItemClickListener
-    private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
-
 
     override fun getItemViewType(position: Int): Int = position
 
@@ -32,10 +30,13 @@ class JobsListAdapter(private val context: Context) : RecyclerView.Adapter<Recyc
         with(holder.itemView) {
 
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                jobTitle.text = Html.fromHtml(jobsItem.title, Html.FROM_HTML_MODE_LEGACY)
+                title.text = Html.fromHtml(jobsItem.title, Html.FROM_HTML_MODE_LEGACY)
+                teaser.text = Html.fromHtml(jobsItem.teaser, Html.FROM_HTML_MODE_LEGACY)
             } else {
-                jobTitle.text = Html.fromHtml(jobsItem.title)
+                title.text = Html.fromHtml(jobsItem.title)
+                teaser.text = Html.fromHtml(jobsItem.teaser)
             }
+
             setOnClickListener { listItemClickListener.onJobsItemClicked(jobsItem.id) }
         }
     }

@@ -3,4 +3,5 @@
     <string name="seek">SEEK</string>
     <string name="location">Location</string>
     <string name="keywords">Job keywords</string>
+    <string name="error">An error has occurred</string>
 </resources>

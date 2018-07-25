@@ -67,14 +67,12 @@ class JobsListPresenter @Inject constructor(private val getJobsUseCase: GetJobsU
     }
 
     private fun onJobsListSuccess(jobs: List<JobObject>) {
-        Log.e("JobsListPresenter", "Get list success " + jobs.size)
         display.setUpJobsList(mutableListOf<JobObject>().apply {
             addAll(jobs)
         })
     }
 
     private fun onJobsListFailure(throwable: Throwable) {
-        Log.e("JobsListPresenter", "Get list failed")
         display.showError()
     }
     // endregion

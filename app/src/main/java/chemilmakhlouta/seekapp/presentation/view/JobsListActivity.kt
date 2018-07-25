@@ -5,6 +5,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
+import android.widget.Toast
 import chemilmakhlouta.seekapp.R
 import chemilmakhlouta.seekapp.application.BaseActivity
 import chemilmakhlouta.seekapp.application.injection.component.ActivityComponent
@@ -70,6 +72,7 @@ class JobsListActivity : BaseActivity(), JobsListPresenter.Display, JobsListPres
     }
 
     override fun showError() {
+        Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show()
     }
 
     override fun navigateToJob(id: Int) =
