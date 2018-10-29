@@ -15,7 +15,7 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val activityComponent = DaggerActivityComponent.builder()
-                .applicationComponent(JobsApplication.applicationComponent)
+                .applicationComponent(CrappApplication.applicationComponent)
                 .build()
 
         inject(activityComponent)

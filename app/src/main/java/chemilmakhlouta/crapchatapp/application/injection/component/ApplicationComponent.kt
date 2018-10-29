@@ -1,11 +1,9 @@
 package chemilmakhlouta.crapchatapp.application.injection.component
 
 import android.app.Application
-import chemilmakhlouta.crapchatapp.application.injection.module.ActivityModule
-import chemilmakhlouta.crapchatapp.application.injection.module.ApplicationModule
-import chemilmakhlouta.crapchatapp.application.injection.module.JobsModule
-import chemilmakhlouta.crapchatapp.application.injection.module.RetrofitModule
+import chemilmakhlouta.crapchatapp.application.injection.module.*
 import chemilmakhlouta.crapchatapp.domain.JobsRepository
+import chemilmakhlouta.crapchatapp.domain.ProfileRepository
 import dagger.Component
 import javax.inject.Singleton
 
@@ -14,10 +12,12 @@ import javax.inject.Singleton
  */
 
 @Singleton
-@Component(modules = arrayOf(ApplicationModule::class, ActivityModule::class, RetrofitModule::class, JobsModule::class))
+@Component(modules = arrayOf(ApplicationModule::class, ActivityModule::class, RetrofitModule::class, JobsModule::class,
+        ProfileModule::class))
 interface ApplicationComponent {
 
     fun inject(application: Application)
 
     fun getJobsRepository(): JobsRepository
+    fun getProfileRepository(): ProfileRepository
 }

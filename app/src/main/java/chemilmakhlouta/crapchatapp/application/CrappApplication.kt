@@ -13,7 +13,7 @@ import chemilmakhlouta.crapchatapp.application.injection.module.ApplicationModul
 /**
  * Created by Chemil Makhlouta on 25/6/18.
  */
-class JobsApplication : MultiDexApplication() {
+class CrappApplication : MultiDexApplication() {
 
     companion object {
         lateinit var applicationComponent: ApplicationComponent

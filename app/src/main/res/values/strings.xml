@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SeekApp</string>
+    <string name="app_name">CrapApp</string>
     <string name="seek">SEEK</string>
     <string name="location">Location</string>
     <string name="keywords">Job keywords</string>
