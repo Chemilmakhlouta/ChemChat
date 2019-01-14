@@ -1,7 +1,7 @@
 package chemilmakhlouta.crapchatapp.presentation.presenter
 
 import chemilmakhlouta.crapchatapp.application.Presenter
-import chemilmakhlouta.crapchatapp.domain.model.JobObject
+import chemilmakhlouta.crapchatapp.domain.model.ChatObject
 import chemilmakhlouta.crapchatapp.domain.usecase.GetJobsUseCase
 import io.reactivex.Single
 import io.reactivex.disposables.Disposables
@@ -11,7 +11,7 @@ import javax.inject.Inject
  * Created by Chemil Makhlouta on 24/7/18.
  */
 
-class JobsListPresenter @Inject constructor(private val getJobsUseCase: GetJobsUseCase) : Presenter {
+class ChatListPresenter @Inject constructor(private val getJobsUseCase: GetJobsUseCase) : Presenter {
 
     private lateinit var display: Display
     private lateinit var router: Router
@@ -19,8 +19,8 @@ class JobsListPresenter @Inject constructor(private val getJobsUseCase: GetJobsU
     private lateinit var keywords: String
     private lateinit var location: String
 
-    private var getJobsListObservable: Single<List<JobObject>>? = null
-    private var getJobsListSubscription = Disposables.disposed()
+    private var getChatsListObservable: Single<List<ChatObject>>? = null
+    private var getChatsListSubscription = Disposables.disposed()
 
     // region lifecycle
     fun inject(display: Display, router: Router) {
@@ -28,50 +28,50 @@ class JobsListPresenter @Inject constructor(private val getJobsUseCase: GetJobsU
         this.router = router
     }
 
-    override fun onStart() = getJobs()
+    override fun onStart() = getChats()
 
-    override fun onResume() = getJobs()
+    override fun onResume() = getChats()
 
-    override fun onPause() = getJobsListSubscription.dispose()
+    override fun onPause() = getChatsListSubscription.dispose()
 
     override fun onStop() {
-        getJobsListObservable = null
+        getChatsListObservable = null
     }
     // endregion
 
     // region UI Interactions
-    fun onSwipeToRefresh() = getJobs()
+    fun onSwipeToRefresh() = getChats()
 
-    fun onJobClicked(id: Int) = router.navigateToJob(id)
+    fun onChatClicked(id: Int) = router.navigateToChat(id)
     // endregion
 
     // region Private Functions
-    private fun getJobs() {
-        if (getJobsListObservable == null) {
-            getJobsListObservable = getJobsUseCase.getJobs(keywords, location)
+    private fun getChats() {
+        if (getChatsListObservable == null) {
+            getChatsListObservable = getJobsUseCase.getJobs(keywords, location)
                     .doOnSubscribe { display.showLoading() }
                     .doAfterTerminate {
                         display.hideLoading()
-                        getJobsListObservable = null
+                        getChatsListObservable = null
                     }
 
-            subscribeToGetJobs()
+            subscribeToGetChats()
         }
     }
 
-    private fun subscribeToGetJobs() {
-        getJobsListObservable?.let {
-            getJobsListSubscription = it.subscribe(this::onJobsListSuccess, this::onJobsListFailure)
+    private fun subscribeToGetChats() {
+        getChatsListObservable?.let {
+            getChatsListSubscription = it.subscribe(this::onChatsListSuccess, this::onChatsListFailure)
         }
     }
 
-    private fun onJobsListSuccess(jobs: List<JobObject>) {
-        display.setUpJobsList(mutableListOf<JobObject>().apply {
-            addAll(jobs)
+    private fun onChatsListSuccess(chats: List<ChatObject>) {
+        display.setUpChatsList(mutableListOf<ChatObject>().apply {
+            addAll(chats)
         })
     }
 
-    private fun onJobsListFailure(throwable: Throwable) {
+    private fun onChatsListFailure(throwable: Throwable) {
         display.showError()
     }
     // endregion
@@ -84,11 +84,11 @@ class JobsListPresenter @Inject constructor(private val getJobsUseCase: GetJobsU
     interface Display {
         fun showLoading()
         fun hideLoading()
-        fun setUpJobsList(jobs: MutableList<JobObject>)
+        fun setUpChatsList(chats: MutableList<ChatObject>)
         fun showError()
     }
 
     interface Router {
-        fun navigateToJob(id: Int)
+        fun navigateToChat(id: Int)
     }
 }

@@ -2,8 +2,7 @@ package chemilmakhlouta.crapchatapp.application.injection.component
 
 import chemilmakhlouta.crapchatapp.application.injection.annotation.PerScreen
 import chemilmakhlouta.crapchatapp.application.injection.module.ActivityModule
-import chemilmakhlouta.crapchatapp.presentation.view.JobSearchActivity
-import chemilmakhlouta.crapchatapp.presentation.view.JobsListActivity
+import chemilmakhlouta.crapchatapp.presentation.view.ChatsListActivity
 import dagger.Component
 
 /**
@@ -15,6 +14,5 @@ import dagger.Component
            modules = arrayOf(ActivityModule::class))
 interface ActivityComponent {
 
-    fun inject(activity: JobSearchActivity)
-    fun inject(activity: JobsListActivity)
+    fun inject(activity: ChatsListActivity)
 }

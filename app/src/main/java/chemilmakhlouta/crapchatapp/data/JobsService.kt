@@ -2,7 +2,7 @@ package chemilmakhlouta.crapchatapp.data
 
 import chemilmakhlouta.crapchatapp.data.model.JobsListResponse
 import chemilmakhlouta.crapchatapp.domain.JobsRepository
-import chemilmakhlouta.crapchatapp.domain.model.JobObject
+import chemilmakhlouta.crapchatapp.domain.model.ChatObject
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -24,7 +24,7 @@ class JobsService @Inject constructor(retrofit: Retrofit) : JobsRepository {
 
     private val client = retrofit.create(JobsClient::class.java)
 
-    override fun getJobs(keywords: String, location: String): Single<List<JobObject>> =
+    override fun getJobs(keywords: String, location: String): Single<List<ChatObject>> =
             client.getJobs(keywords, location).map { mapToDomainJobsList(it.data) }.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
 

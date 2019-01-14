@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="chemilmakhlouta.crapchatapp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name="chemilmakhlouta.crapchatapp.application.CrappApplication"
@@ -13,17 +13,16 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="chemilmakhlouta.crapchatapp.presentation.view.JobSearchActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
 
         <activity
-            android:name="chemilmakhlouta.crapchatapp.presentation.view.JobsListActivity"
-            android:screenOrientation="portrait"/>
-    </application>
+            android:name="chemilmakhlouta.crapchatapp.presentation.view.ChatsListActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
 </manifest>
