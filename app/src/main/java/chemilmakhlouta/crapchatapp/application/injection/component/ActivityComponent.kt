@@ -3,6 +3,7 @@ package chemilmakhlouta.crapchatapp.application.injection.component
 import chemilmakhlouta.crapchatapp.application.injection.annotation.PerScreen
 import chemilmakhlouta.crapchatapp.application.injection.module.ActivityModule
 import chemilmakhlouta.crapchatapp.presentation.view.ChatsListActivity
+import chemilmakhlouta.crapchatapp.presentation.view.LatestChatsActivity
 import dagger.Component
 
 /**
@@ -15,4 +16,5 @@ import dagger.Component
 interface ActivityComponent {
 
     fun inject(activity: ChatsListActivity)
+    fun inject(activity: LatestChatsActivity)
 }

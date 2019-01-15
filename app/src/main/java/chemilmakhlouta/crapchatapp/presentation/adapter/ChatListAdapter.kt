@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import chemilmakhlouta.crapchatapp.R
+import chemilmakhlouta.crapchatapp.application.convertTime
 import chemilmakhlouta.crapchatapp.data.model.ChatResponse
-import chemilmakhlouta.crapchatapp.domain.model.ChatObject
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.item_chat.view.*
 
 /**
  * Created by Chemil Makhlouta on 24/6/18.
@@ -16,15 +18,23 @@ class ChatListAdapter(private val context: Context) : RecyclerView.Adapter<Recyc
 
     private var chatsList: List<ChatResponse> = emptyList()
 
-    private lateinit var listItemClickListener: OnchatsListItemClickListener
-
     override fun getItemViewType(position: Int): Int = position
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val chatsItem = chatsList[position]
+        val chatItem = chatsList[position]
         with(holder.itemView) {
 
-//            setOnClickListener { listItemClickListener.onchatsItemClicked(chatsItem.id) }
+            if (chatItem.senderId.equals(FirebaseAuth.getInstance().currentUser!!.uid)) {
+                layout_message_left.visibility = View.GONE
+                layout_message_right.visibility = View.VISIBLE
+                text_message_right.text = chatItem.message
+                text_time_messages_right.text = convertTime(chatItem.timeStamp)
+            } else {
+                layout_message_left.visibility = View.VISIBLE
+                layout_message_right.visibility = View.GONE
+                text_message_left.text = chatItem.message
+                text_time_messages_left.text = convertTime(chatItem.timeStamp)
+            }
         }
     }
 
@@ -34,15 +44,7 @@ class ChatListAdapter(private val context: Context) : RecyclerView.Adapter<Recyc
         return chatListItemViewHolder(LayoutInflater.from(context).inflate(R.layout.item_chat, parent, false))
     }
 
-    fun setchatsListItemClickListener(listener: OnchatsListItemClickListener) {
-        listItemClickListener = listener
-    }
-
     private class chatListItemViewHolder(view: View) : RecyclerView.ViewHolder(view)
-
-    interface OnchatsListItemClickListener {
-        fun onchatsItemClicked(id: Int)
-    }
 
     fun setchatsList(chats: MutableList<ChatResponse>) {
         chatsList = chats
