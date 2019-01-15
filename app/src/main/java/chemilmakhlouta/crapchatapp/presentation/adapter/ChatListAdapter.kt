@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import chemilmakhlouta.crapchatapp.R
+import chemilmakhlouta.crapchatapp.data.model.ChatResponse
 import chemilmakhlouta.crapchatapp.domain.model.ChatObject
 
 /**
@@ -13,7 +14,7 @@ import chemilmakhlouta.crapchatapp.domain.model.ChatObject
  */
 class ChatListAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var chatsList: List<ChatObject> = emptyList()
+    private var chatsList: List<ChatResponse> = emptyList()
 
     private lateinit var listItemClickListener: OnchatsListItemClickListener
 
@@ -23,7 +24,7 @@ class ChatListAdapter(private val context: Context) : RecyclerView.Adapter<Recyc
         val chatsItem = chatsList[position]
         with(holder.itemView) {
 
-            setOnClickListener { listItemClickListener.onchatsItemClicked(chatsItem.id) }
+//            setOnClickListener { listItemClickListener.onchatsItemClicked(chatsItem.id) }
         }
     }
 
@@ -43,7 +44,7 @@ class ChatListAdapter(private val context: Context) : RecyclerView.Adapter<Recyc
         fun onchatsItemClicked(id: Int)
     }
 
-    fun setchatsList(chats: MutableList<ChatObject>) {
+    fun setchatsList(chats: MutableList<ChatResponse>) {
         chatsList = chats
         notifyDataSetChanged()
     }

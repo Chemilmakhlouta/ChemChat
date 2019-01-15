@@ -9,6 +9,7 @@ import android.widget.Toast
 import chemilmakhlouta.crapchatapp.R
 import chemilmakhlouta.crapchatapp.application.BaseActivity
 import chemilmakhlouta.crapchatapp.application.injection.component.ActivityComponent
+import chemilmakhlouta.crapchatapp.data.model.ChatResponse
 import chemilmakhlouta.crapchatapp.domain.model.ChatObject
 import chemilmakhlouta.crapchatapp.presentation.adapter.ChatListAdapter
 import chemilmakhlouta.crapchatapp.presentation.presenter.ChatListPresenter
@@ -38,8 +39,6 @@ class ChatsListActivity : BaseActivity(), ChatListPresenter.Display, ChatListPre
         chatAdapter = ChatListAdapter(this)
         chatAdapter.setchatsListItemClickListener(this)
         chatsList.adapter = chatAdapter
-
-        swipeContainer.setOnRefreshListener { presenter.onSwipeToRefresh() }
     }
 
     override fun inject(activityComponent: ActivityComponent) {
@@ -47,21 +46,21 @@ class ChatsListActivity : BaseActivity(), ChatListPresenter.Display, ChatListPre
         presenter.inject(this, this)
     }
 
-    override fun showLoading() {
-        swipeContainer.isRefreshing = true
-    }
-
-    override fun hideLoading() {
-        swipeContainer.isRefreshing = false
-    }
-
-    override fun setUpChatsList(chats: MutableList<ChatObject>) {
+    override fun showMessages(chats: ArrayList<ChatResponse>) {
         val adapter = (chatsList.adapter as ChatListAdapter)
         adapter.setchatsList(chats)
     }
 
     override fun showError() {
         Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show()
+    }
+
+    override fun showLoading() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun hideLoading() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun navigateToChat(id: Int) =
