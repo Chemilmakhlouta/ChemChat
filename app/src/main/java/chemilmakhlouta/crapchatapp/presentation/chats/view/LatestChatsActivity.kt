@@ -1,4 +1,4 @@
-package chemilmakhlouta.crapchatapp.presentation.view
+package chemilmakhlouta.crapchatapp.presentation.chats.view
 
 import android.content.Context
 import android.content.Intent
@@ -9,9 +9,9 @@ import android.widget.Toast
 import chemilmakhlouta.crapchatapp.R
 import chemilmakhlouta.crapchatapp.application.BaseActivity
 import chemilmakhlouta.crapchatapp.application.injection.component.ActivityComponent
-import chemilmakhlouta.crapchatapp.data.model.ChatResponse
-import chemilmakhlouta.crapchatapp.presentation.adapter.LatestChatsAdapter
-import chemilmakhlouta.crapchatapp.presentation.presenter.LatestChatsPresenter
+import chemilmakhlouta.crapchatapp.data.chats.model.ChatResponse
+import chemilmakhlouta.crapchatapp.presentation.chats.adapter.LatestChatsAdapter
+import chemilmakhlouta.crapchatapp.presentation.chats.presenter.LatestChatsPresenter
 import kotlinx.android.synthetic.main.activity_chat_list.*
 import javax.inject.Inject
 

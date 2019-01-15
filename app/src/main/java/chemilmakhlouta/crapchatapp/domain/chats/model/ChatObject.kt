@@ -1,4 +1,4 @@
-package chemilmakhlouta.crapchatapp.domain.model
+package chemilmakhlouta.crapchatapp.domain.chats.model
 
 /**
  * Created by Chemil Makhlouta on 24/7/18.

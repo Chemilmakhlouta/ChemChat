@@ -1,10 +1,10 @@
-package chemilmakhlouta.crapchatapp.presentation.presenter
+package chemilmakhlouta.crapchatapp.presentation.chats.presenter
 
 import chemilmakhlouta.crapchatapp.application.Presenter
 import chemilmakhlouta.crapchatapp.application.callbackinterfaces.FirebaseCallBack
 import chemilmakhlouta.crapchatapp.application.callbackinterfaces.ModelCallBack
-import chemilmakhlouta.crapchatapp.data.model.ChatResponse
-import chemilmakhlouta.crapchatapp.data.model.LatestChatsManager
+import chemilmakhlouta.crapchatapp.data.chats.model.ChatManager
+import chemilmakhlouta.crapchatapp.data.chats.model.ChatResponse
 import com.google.firebase.database.DataSnapshot
 import java.util.ArrayList
 import javax.inject.Inject
@@ -13,12 +13,14 @@ import javax.inject.Inject
  * Created by Chemil Makhlouta on 24/7/18.
  */
 
-class LatestChatsPresenter @Inject constructor() : Presenter, FirebaseCallBack, ModelCallBack {
+class ChatListPresenter @Inject constructor() : Presenter, FirebaseCallBack, ModelCallBack {
 
     private lateinit var display: Display
     private lateinit var router: Router
 
-    private val messagesMap = HashMap<String, ChatResponse>()
+    private lateinit var toUserId: String
+
+    private var chatsList: ArrayList<ChatResponse> = ArrayList<ChatResponse>()
 
     // region lifecycle
     fun inject(display: Display, router: Router) {
@@ -27,7 +29,7 @@ class LatestChatsPresenter @Inject constructor() : Presenter, FirebaseCallBack, 
     }
 
     override fun onStart() {
-        setChatsListener()
+        setChatListener()
     }
 //
 //    override fun onResume() = getChats()
@@ -39,18 +41,9 @@ class LatestChatsPresenter @Inject constructor() : Presenter, FirebaseCallBack, 
 //    }
     // endregion
 
-    // region UI Interactions
-    fun onChatClicked(id: Int) = router.navigateToChat(id)
-    // endregion
-
-    private fun setChatsListener() {
-        LatestChatsManager.getInstance("",this)!!.addMessageListeners()
-    }
-
     override fun onNewMessage(dataSnapshot: DataSnapshot) {
-        val chatMessage = ChatResponse(dataSnapshot)
-        messagesMap[dataSnapshot.key!!] = chatMessage
-        onModelUpdated(ArrayList(messagesMap.values))
+        chatsList.add(ChatResponse(dataSnapshot))
+        onModelUpdated(chatsList)
     }
 
     override fun onModelUpdated(messages: ArrayList<ChatResponse>) {
@@ -59,14 +52,21 @@ class LatestChatsPresenter @Inject constructor() : Presenter, FirebaseCallBack, 
         }
     }
 
+    private fun setChatListener() {
+        ChatManager.getInstance(toUserId, this)!!.addMessageListeners()
+    }
+
+    // public functions
+    fun onIntentReceived(toUserId: String) {
+        this.toUserId = toUserId
+    }
+    // endRegion
+
     interface Display {
-        fun showLoading()
-        fun hideLoading()
         fun showMessages(chats: ArrayList<ChatResponse>)
         fun showError()
     }
 
     interface Router {
-        fun navigateToChat(id: Int)
     }
 }

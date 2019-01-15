@@ -1,18 +1,16 @@
-package chemilmakhlouta.crapchatapp.presentation.view
+package chemilmakhlouta.crapchatapp.presentation.chats.view
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
 import chemilmakhlouta.crapchatapp.R
 import chemilmakhlouta.crapchatapp.application.BaseActivity
 import chemilmakhlouta.crapchatapp.application.injection.component.ActivityComponent
-import chemilmakhlouta.crapchatapp.data.model.ChatResponse
-import chemilmakhlouta.crapchatapp.domain.model.ChatObject
-import chemilmakhlouta.crapchatapp.presentation.adapter.ChatListAdapter
-import chemilmakhlouta.crapchatapp.presentation.presenter.ChatListPresenter
+import chemilmakhlouta.crapchatapp.data.chats.model.ChatResponse
+import chemilmakhlouta.crapchatapp.presentation.chats.adapter.ChatListAdapter
+import chemilmakhlouta.crapchatapp.presentation.chats.presenter.ChatListPresenter
 import kotlinx.android.synthetic.main.activity_chat_list.*
 import javax.inject.Inject
 

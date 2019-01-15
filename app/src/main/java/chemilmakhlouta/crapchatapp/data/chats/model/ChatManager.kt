@@ -1,4 +1,4 @@
-package chemilmakhlouta.crapchatapp.data.model
+package chemilmakhlouta.crapchatapp.data.chats.model
 
 import chemilmakhlouta.crapchatapp.application.callbackinterfaces.FirebaseCallBack
 import com.google.firebase.auth.FirebaseAuth

@@ -1,4 +1,4 @@
-package chemilmakhlouta.crapchatapp.presentation.adapter
+package chemilmakhlouta.crapchatapp.presentation.chats.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import chemilmakhlouta.crapchatapp.R
 import chemilmakhlouta.crapchatapp.application.convertTime
-import chemilmakhlouta.crapchatapp.data.model.ChatResponse
+import chemilmakhlouta.crapchatapp.data.chats.model.ChatResponse
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.item_chat.view.*
 

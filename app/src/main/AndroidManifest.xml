@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="chemilmakhlouta.crapchatapp.presentation.view.ChatsListActivity"
+            android:name="chemilmakhlouta.crapchatapp.presentation.chats.view.ChatsListActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.view.LatestChatsActivity" />
+        <activity android:name="chemilmakhlouta.crapchatapp.presentation.chats.view.LatestChatsActivity" />
+        <activity android:name=".presentation.login.view.LoginActivity" />
+        <activity android:name=".presentation.registration.view.RegisterActivity" />
     </application>
 </manifest>

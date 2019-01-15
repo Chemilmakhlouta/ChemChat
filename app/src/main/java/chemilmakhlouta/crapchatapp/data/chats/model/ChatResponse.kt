@@ -1,4 +1,4 @@
-package chemilmakhlouta.crapchatapp.data.model
+package chemilmakhlouta.crapchatapp.data.chats.model
 
 import com.google.firebase.database.DataSnapshot
 import java.util.HashMap
