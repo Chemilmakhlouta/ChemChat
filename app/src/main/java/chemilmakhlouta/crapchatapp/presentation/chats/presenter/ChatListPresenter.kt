@@ -60,6 +60,10 @@ class ChatListPresenter @Inject constructor() : Presenter, FirebaseCallBack, Mod
     fun onIntentReceived(toUserId: String) {
         this.toUserId = toUserId
     }
+
+    fun onSendChatClicked(message: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
     // endRegion
 
     interface Display {

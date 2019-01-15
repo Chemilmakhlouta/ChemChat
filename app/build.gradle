@@ -4,8 +4,8 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-allopen'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "chemilmakhlouta.crapchatapp"
         minSdkVersion 17
@@ -24,7 +24,7 @@ android {
 }
 
 ext {
-    androidSupportVersion = '26.+'
+    androidSupportVersion = '27.1.1'
     androidRoomVersion = '1.0.0'
     daggerVersion = '2.7'
     leakCanaryVersion = '1.4'
@@ -61,7 +61,7 @@ dependencies {
     compile 'com.google.firebase:firebase-storage:16.0.1'
     compile 'com.google.firebase:firebase-database:16.0.1'
 
-    // Picasso (image loading)
+    compile 'com.xwray:groupie:2.1.0'
 
     // rxJava
     compile "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
@@ -75,13 +75,10 @@ dependencies {
 
     // Testing
     compile 'com.android.support:multidex:1.0.1'
-    compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'org.jetbrains.kotlin:kotlin-stdlib:1.1.1'
     compile 'com.google.dagger:dagger:2.7'
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.android.support:design:26.+'
-    compile 'com.android.support:support-vector-drawable:26.+'
     testCompile 'org.jetbrains.kotlin:kotlin-test:1.1.1'
     testCompile 'org.jetbrains.kotlin:kotlin-reflect:1.1.1'
     testCompile 'junit:junit:4.12'

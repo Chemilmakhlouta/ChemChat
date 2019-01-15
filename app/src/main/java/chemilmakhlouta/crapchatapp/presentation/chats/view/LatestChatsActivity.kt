@@ -22,7 +22,7 @@ import javax.inject.Inject
 class LatestChatsActivity : BaseActivity(), LatestChatsPresenter.Display, LatestChatsPresenter.Router, LatestChatsAdapter.OnchatsListItemClickListener {
 
     companion object {
-        fun makeIntent(context: Context, keywords: String, location: String): Intent =
+        fun makeIntent(context: Context): Intent =
                 Intent(context, ChatsListActivity::class.java)
     }
 
@@ -63,10 +63,8 @@ class LatestChatsActivity : BaseActivity(), LatestChatsPresenter.Display, Latest
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun navigateToChat(id: Int) =
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.seek.com.au/job/" + id)))
+    override fun onchatsItemClicked(id: Int) = presenter.onChatClicked(id)
 
-    override fun onchatsItemClicked(id: Int) {
-        presenter.onChatClicked(id)
-    }
+    override fun navigateToChat(id: Int) =
+            startActivity(Intent(ChatsListActivity.makeIntent(this, id.toString())))
 }

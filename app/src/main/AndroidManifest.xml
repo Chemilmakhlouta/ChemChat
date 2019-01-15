@@ -16,7 +16,10 @@
 
         <activity
             android:name="chemilmakhlouta.crapchatapp.presentation.chats.view.ChatsListActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" />
+        <activity android:name="chemilmakhlouta.crapchatapp.presentation.chats.view.LatestChatsActivity" />
+        <activity android:name=".presentation.login.view.LoginActivity" />
+        <activity android:name=".presentation.registration.view.RegisterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -24,8 +27,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="chemilmakhlouta.crapchatapp.presentation.chats.view.LatestChatsActivity" />
-        <activity android:name=".presentation.login.view.LoginActivity" />
-        <activity android:name=".presentation.registration.view.RegisterActivity" />
     </application>
 </manifest>

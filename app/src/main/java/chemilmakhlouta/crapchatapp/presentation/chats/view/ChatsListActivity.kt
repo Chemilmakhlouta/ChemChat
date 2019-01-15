@@ -11,6 +11,7 @@ import chemilmakhlouta.crapchatapp.application.injection.component.ActivityCompo
 import chemilmakhlouta.crapchatapp.data.chats.model.ChatResponse
 import chemilmakhlouta.crapchatapp.presentation.chats.adapter.ChatListAdapter
 import chemilmakhlouta.crapchatapp.presentation.chats.presenter.ChatListPresenter
+import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.android.synthetic.main.activity_chat_list.*
 import javax.inject.Inject
 
@@ -34,14 +35,17 @@ class ChatsListActivity : BaseActivity(), ChatListPresenter.Display, ChatListPre
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat_list)
+        setContentView(R.layout.activity_chat)
 
         chatsList.layoutManager = LinearLayoutManager(this)
         chatAdapter = ChatListAdapter(this)
         chatsList.adapter = chatAdapter
 
         intent?.let {
-            presenter.onIntentReceived(intent.getStringExtra(INTENT_EXTRA_TO_USER_ID))}
+            presenter.onIntentReceived(intent.getStringExtra(INTENT_EXTRA_TO_USER_ID))
+        }
+
+        sendChatButton.setOnClickListener { presenter.onSendChatClicked(chatText.text.toString()) }
     }
 
     override fun inject(activityComponent: ActivityComponent) {
