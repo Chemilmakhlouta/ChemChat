@@ -7,13 +7,14 @@ class ChatResponse(dataSnapshot: DataSnapshot) {
     var msgKey: String? = null
     var timeStamp: Long = 0
     var message: String? = null
-    var senderId: String? = null
+    var fromId: String? = null
 
     init {
         val `object` = dataSnapshot.value as HashMap<*, *>?
         this.msgKey = dataSnapshot.key
         this.message = `object`!!["text"].toString()
-        this.senderId = `object`["senderId"].toString()
-        this.timeStamp = java.lang.Long.parseLong(`object`["time"].toString())
+        this.fromId = `object`["fromId"].toString()
+//        this.timeStamp = java.lang.Long.parseLong(`object`["time"].toString())
+        this.timeStamp = 234
     }
 }

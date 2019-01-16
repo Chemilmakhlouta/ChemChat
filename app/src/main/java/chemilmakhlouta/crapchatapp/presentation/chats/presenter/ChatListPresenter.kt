@@ -5,7 +5,12 @@ import chemilmakhlouta.crapchatapp.application.callbackinterfaces.FirebaseCallBa
 import chemilmakhlouta.crapchatapp.application.callbackinterfaces.ModelCallBack
 import chemilmakhlouta.crapchatapp.data.chats.model.ChatManager
 import chemilmakhlouta.crapchatapp.data.chats.model.ChatResponse
+import chemilmakhlouta.crapchatapp.data.registration.Model.User
+import chemilmakhlouta.crapchatapp.domain.chats.usecase.SendChatUseCase
 import com.google.firebase.database.DataSnapshot
+import io.reactivex.Completable
+import io.reactivex.Single
+import io.reactivex.disposables.Disposables
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -13,7 +18,7 @@ import javax.inject.Inject
  * Created by Chemil Makhlouta on 24/7/18.
  */
 
-class ChatListPresenter @Inject constructor() : Presenter, FirebaseCallBack, ModelCallBack {
+class ChatListPresenter @Inject constructor(private val sendChatUseCase: SendChatUseCase) : Presenter, FirebaseCallBack, ModelCallBack {
 
     private lateinit var display: Display
     private lateinit var router: Router
@@ -22,6 +27,8 @@ class ChatListPresenter @Inject constructor() : Presenter, FirebaseCallBack, Mod
 
     private var chatsList: ArrayList<ChatResponse> = ArrayList<ChatResponse>()
 
+    private var sendChatObservable: Completable? = null
+    private var sendChatSubscription = Disposables.disposed()
     // region lifecycle
     fun inject(display: Display, router: Router) {
         this.display = display
@@ -56,19 +63,43 @@ class ChatListPresenter @Inject constructor() : Presenter, FirebaseCallBack, Mod
         ChatManager.getInstance(toUserId, this)!!.addMessageListeners()
     }
 
+    private fun sendChat(message: String) {
+        if (sendChatObservable == null) {
+            sendChatObservable = sendChatUseCase.sendChat(message, toUserId)
+                    .doAfterTerminate {
+                        sendChatObservable = null
+                    }
+
+            subscribeToSendChat()
+        }
+    }
+
+    private fun subscribeToSendChat() {
+        sendChatObservable?.let {
+            sendChatSubscription = it.subscribe(this::onSendChatSuccess, this::onSendChatFailure)
+        }
+    }
+
+    private fun onSendChatSuccess() {
+        display.clearTextAndScroll()
+    }
+
+    private fun onSendChatFailure(throwable: Throwable) {
+        display.showError(throwable.message!!)
+    }
     // public functions
     fun onIntentReceived(toUserId: String) {
         this.toUserId = toUserId
     }
 
-    fun onSendChatClicked(message: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    fun onSendChatClicked(message: String) = sendChat(message)
     // endRegion
 
     interface Display {
         fun showMessages(chats: ArrayList<ChatResponse>)
-        fun showError()
+        fun showError(message: String)
+
+        fun clearTextAndScroll()
     }
 
     interface Router {

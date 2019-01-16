@@ -1,6 +1,7 @@
 package chemilmakhlouta.crapchatapp.presentation.registration.presenter
 
 import android.net.Uri
+import android.util.Log
 import chemilmakhlouta.crapchatapp.application.Presenter
 import chemilmakhlouta.crapchatapp.domain.registration.usecase.RegistrationUseCase
 import io.reactivex.Completable
@@ -95,16 +96,16 @@ class RegisterPresenter @Inject constructor(private val registrationUseCase: Reg
     }
 
     private fun onImageUploadSuccess() {
-        router.navigateToLogin()
+        saveUser()
     }
 
     private fun onSaveUserSuccess() {
-        saveUser()
+        router.navigateToLogin()
     }
 
     private fun onRegisterFailure(throwable: Throwable) {
         display.hideLoading()
-        display.showError()
+        display.showError(throwable.message!!)
     }
 
     fun onRegisterClicked(email: String, username: String, password: String) {
@@ -131,7 +132,7 @@ class RegisterPresenter @Inject constructor(private val registrationUseCase: Reg
     // endregion
 
     interface Display {
-        fun showError()
+        fun showError(errorMessage: String)
 
         fun showLoading()
         fun hideLoading()

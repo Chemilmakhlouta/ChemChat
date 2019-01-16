@@ -2,7 +2,6 @@ package chemilmakhlouta.crapchatapp.presentation.chats.view
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
@@ -23,7 +22,7 @@ class LatestChatsActivity : BaseActivity(), LatestChatsPresenter.Display, Latest
 
     companion object {
         fun makeIntent(context: Context): Intent =
-                Intent(context, ChatsListActivity::class.java)
+                Intent(context, LatestChatsActivity::class.java)
     }
 
     @Inject
@@ -39,6 +38,8 @@ class LatestChatsActivity : BaseActivity(), LatestChatsPresenter.Display, Latest
         chatAdapter = LatestChatsAdapter(this)
         chatAdapter.setchatsListItemClickListener(this)
         chatsList.adapter = chatAdapter
+
+        newMessageButton.setOnClickListener { presenter.onNewMessageClicked() }
     }
 
     override fun inject(activityComponent: ActivityComponent) {
@@ -56,15 +57,16 @@ class LatestChatsActivity : BaseActivity(), LatestChatsPresenter.Display, Latest
     }
 
     override fun showLoading() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun hideLoading() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onchatsItemClicked(id: Int) = presenter.onChatClicked(id)
 
     override fun navigateToChat(id: Int) =
             startActivity(Intent(ChatsListActivity.makeIntent(this, id.toString())))
+
+    override fun navigateToSelectUser() =
+        startActivity(Intent(SelectRecipientActivity.makeIntent(this)))
 }

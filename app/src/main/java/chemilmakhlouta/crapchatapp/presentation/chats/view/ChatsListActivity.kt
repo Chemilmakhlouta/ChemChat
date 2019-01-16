@@ -12,7 +12,6 @@ import chemilmakhlouta.crapchatapp.data.chats.model.ChatResponse
 import chemilmakhlouta.crapchatapp.presentation.chats.adapter.ChatListAdapter
 import chemilmakhlouta.crapchatapp.presentation.chats.presenter.ChatListPresenter
 import kotlinx.android.synthetic.main.activity_chat.*
-import kotlinx.android.synthetic.main.activity_chat_list.*
 import javax.inject.Inject
 
 /**
@@ -37,9 +36,9 @@ class ChatsListActivity : BaseActivity(), ChatListPresenter.Display, ChatListPre
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        chatsList.layoutManager = LinearLayoutManager(this)
+        chatList.layoutManager = LinearLayoutManager(this)
         chatAdapter = ChatListAdapter(this)
-        chatsList.adapter = chatAdapter
+        chatList.adapter = chatAdapter
 
         intent?.let {
             presenter.onIntentReceived(intent.getStringExtra(INTENT_EXTRA_TO_USER_ID))
@@ -54,11 +53,16 @@ class ChatsListActivity : BaseActivity(), ChatListPresenter.Display, ChatListPre
     }
 
     override fun showMessages(chats: ArrayList<ChatResponse>) {
-        val adapter = (chatsList.adapter as ChatListAdapter)
+        val adapter = (chatList.adapter as ChatListAdapter)
         adapter.setchatsList(chats)
     }
 
-    override fun showError() {
-        Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show()
+    override fun showError(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun clearTextAndScroll() {
+        chatText.text.clear()
+        chatList.scrollToPosition(chatAdapter.itemCount - 1)
     }
 }

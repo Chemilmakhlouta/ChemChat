@@ -1,5 +1,7 @@
 package chemilmakhlouta.crapchatapp.application.injection.module
 
+import chemilmakhlouta.crapchatapp.data.chats.UserRepository
+import chemilmakhlouta.crapchatapp.data.chats.UserService
 import chemilmakhlouta.crapchatapp.data.login.LoginRepository
 import chemilmakhlouta.crapchatapp.data.login.LoginService
 import chemilmakhlouta.crapchatapp.data.registration.RegistrationRepository
@@ -22,4 +24,8 @@ class IdentityModule {
     @Provides
     @Singleton
     fun providesRegistrationRepository(): RegistrationRepository = RegistrationService()
+
+    @Provides
+    @Singleton
+    fun providesUserRepository(): UserRepository = UserService()
 }

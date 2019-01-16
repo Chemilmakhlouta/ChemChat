@@ -2,6 +2,7 @@ package chemilmakhlouta.crapchatapp.application.injection.component
 
 import android.app.Application
 import chemilmakhlouta.crapchatapp.application.injection.module.*
+import chemilmakhlouta.crapchatapp.data.chats.UserRepository
 import chemilmakhlouta.crapchatapp.data.login.LoginRepository
 import chemilmakhlouta.crapchatapp.data.registration.RegistrationRepository
 import dagger.Component
@@ -19,4 +20,5 @@ interface ApplicationComponent {
 
     fun getRegistrationRepository(): RegistrationRepository
     fun getLoginRepository(): LoginRepository
+    fun getUserRepository(): UserRepository
 }

@@ -12,7 +12,7 @@ import com.google.firebase.database.FirebaseDatabase
  * Created by Rosinante24 on 11/01/18.
  */
 
-class LatestChatsManager(roomName: String, private var firebaseCallBack: FirebaseCallBack?) : ChildEventListener {
+class LatestChatsManager(private var firebaseCallBack: FirebaseCallBack?) : ChildEventListener {
     private val databaseReference: DatabaseReference
 
     companion object {
@@ -20,10 +20,10 @@ class LatestChatsManager(roomName: String, private var firebaseCallBack: Firebas
         private var latestChatsManager: LatestChatsManager? = null
 
         @Synchronized
-        fun getInstance(roomName: String, firebaseCallBack: FirebaseCallBack): LatestChatsManager? {
+        fun getInstance(firebaseCallBack: FirebaseCallBack): LatestChatsManager? {
             if (latestChatsManager == null) {
                 synchronized(LatestChatsManager::class.java) {
-                    latestChatsManager = LatestChatsManager(roomName, firebaseCallBack)
+                    latestChatsManager = LatestChatsManager(firebaseCallBack)
                 }
             }
             return latestChatsManager

@@ -24,7 +24,7 @@ class ChatListAdapter(private val context: Context) : RecyclerView.Adapter<Recyc
         val chatItem = chatsList[position]
         with(holder.itemView) {
 
-            if (chatItem.senderId.equals(FirebaseAuth.getInstance().currentUser!!.uid)) {
+            if (chatItem.fromId.equals(FirebaseAuth.getInstance().currentUser!!.uid)) {
                 layout_message_left.visibility = View.GONE
                 layout_message_right.visibility = View.VISIBLE
                 text_message_right.text = chatItem.message

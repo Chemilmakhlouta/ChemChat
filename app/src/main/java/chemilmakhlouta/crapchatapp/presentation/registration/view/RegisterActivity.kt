@@ -13,6 +13,11 @@ import chemilmakhlouta.crapchatapp.presentation.login.view.LoginActivity
 import chemilmakhlouta.crapchatapp.presentation.registration.presenter.RegisterPresenter
 import kotlinx.android.synthetic.main.activity_register.*
 import javax.inject.Inject
+import android.view.View
+
+
+
+
 
 /**
  * Created by Chemil Makhlouta on 15/01/19.
@@ -44,16 +49,16 @@ class RegisterActivity : BaseActivity(), RegisterPresenter.Display, RegisterPres
         }
     }
 
-    override fun showError() {
-        Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show()
+    override fun showError(errorMessage: String) {
+        Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
     }
 
     override fun showLoading() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        progressbar.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        progressbar.visibility = View.GONE
     }
 
     override fun navigateToLogin() = startActivity(Intent(LoginActivity.makeIntent(this)))

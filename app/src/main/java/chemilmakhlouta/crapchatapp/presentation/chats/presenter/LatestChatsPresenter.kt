@@ -44,7 +44,7 @@ class LatestChatsPresenter @Inject constructor() : Presenter, FirebaseCallBack, 
     // endregion
 
     private fun setChatsListener() {
-        LatestChatsManager.getInstance("",this)!!.addMessageListeners()
+        LatestChatsManager.getInstance(this)!!.addMessageListeners()
     }
 
     override fun onNewMessage(dataSnapshot: DataSnapshot) {
@@ -59,6 +59,10 @@ class LatestChatsPresenter @Inject constructor() : Presenter, FirebaseCallBack, 
         }
     }
 
+    fun onNewMessageClicked() {
+        router.navigateToSelectUser()
+    }
+
     interface Display {
         fun showLoading()
         fun hideLoading()
@@ -68,5 +72,6 @@ class LatestChatsPresenter @Inject constructor() : Presenter, FirebaseCallBack, 
 
     interface Router {
         fun navigateToChat(id: Int)
+        fun navigateToSelectUser()
     }
 }

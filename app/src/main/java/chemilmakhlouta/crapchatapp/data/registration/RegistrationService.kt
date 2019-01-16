@@ -52,12 +52,12 @@ class RegistrationService @Inject constructor() : RegistrationRepository {
             val user = User(uid, username, profileImageUrl)
             ref.setValue(user)
                     .addOnSuccessListener {
-                        Log.d("REGISTRATION_SERVICE", "Finally we saved the user to Firebase Database")
+                        Log.e("REGISTRATION_SERVICE", "Finally we saved the user to Firebase Database")
                         subscriber.onComplete()
                     }
                     .addOnFailureListener {
-                        Log.d("REGISTRATION_SERVICE", "Failed to set value to database: ${it.message}")
-                        subscriber.onComplete()
+                        Log.e("REGISTRATION_SERVICE", "Failed to set value to database: ${it.message}")
+                        subscriber.onError(it)
                     }
         }
     }
