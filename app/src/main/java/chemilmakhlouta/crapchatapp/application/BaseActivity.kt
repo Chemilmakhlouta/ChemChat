@@ -29,5 +29,23 @@ abstract class BaseActivity : AppCompatActivity() {
 
         presenter.onStart()
     }
+
+    override fun onPause() {
+        super.onPause()
+
+        presenter.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        presenter.onResume()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        presenter.onStop()
+    }
     // endRegion
 }

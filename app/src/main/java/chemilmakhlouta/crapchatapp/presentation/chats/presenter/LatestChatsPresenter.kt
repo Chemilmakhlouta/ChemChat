@@ -29,22 +29,24 @@ class LatestChatsPresenter @Inject constructor() : Presenter, FirebaseCallBack, 
     override fun onStart() {
         setChatsListener()
     }
-//
+
 //    override fun onResume() = getChats()
 //
 //    override fun onPause() = getChatsListSubscription.dispose()
 //
-//    override fun onStop() {
-//        getChatsListObservable = null
-//    }
+    override fun onStop() = removeChatListener()
     // endregion
 
     // region UI Interactions
     fun onChatClicked(id: Int) = router.navigateToChat(id)
     // endregion
 
-    private fun setChatsListener() {
+    private fun setChatsListener() =
         LatestChatsManager.getInstance(this)!!.addMessageListeners()
+
+    private fun removeChatListener() {
+        LatestChatsManager.getInstance(this)!!.removeListener()
+        LatestChatsManager.getInstance(this)!!.destroy()
     }
 
     override fun onNewMessage(dataSnapshot: DataSnapshot) {

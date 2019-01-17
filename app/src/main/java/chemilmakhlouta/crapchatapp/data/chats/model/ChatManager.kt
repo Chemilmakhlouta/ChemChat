@@ -41,7 +41,6 @@ class ChatManager(toUserId: String, private var firebaseCallBack: FirebaseCallBa
     }
 
     override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
-        firebaseCallBack!!.onNewMessage(dataSnapshot)
 
     }
 

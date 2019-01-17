@@ -40,12 +40,12 @@ class ChatListPresenter @Inject constructor(private val sendChatUseCase: SendCha
     }
 //
 //    override fun onResume() = getChats()
-//
+////
 //    override fun onPause() = getChatsListSubscription.dispose()
 //
-//    override fun onStop() {
-//        getChatsListObservable = null
-//    }
+    override fun onStop() {
+        removeChatListener()
+    }
     // endregion
 
     override fun onNewMessage(dataSnapshot: DataSnapshot) {
@@ -59,8 +59,12 @@ class ChatListPresenter @Inject constructor(private val sendChatUseCase: SendCha
         }
     }
 
-    private fun setChatListener() {
+    private fun setChatListener() =
         ChatManager.getInstance(toUserId, this)!!.addMessageListeners()
+
+    fun removeChatListener() {
+        ChatManager.getInstance(toUserId, this)!!.removeListener()
+        ChatManager.getInstance(toUserId, this)!!.destroy()
     }
 
     private fun sendChat(message: String) {
