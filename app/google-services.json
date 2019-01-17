@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "78262690213",
+    "firebase_url": "https://crapchat-2294e.firebaseio.com",
+    "project_id": "crapchat-2294e",
+    "storage_bucket": "crapchat-2294e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:78262690213:android:3fb50fe7bc166150",
+        "android_client_info": {
+          "package_name": "chemilmakhlouta.crapchatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "78262690213-plbbiebp6tom70g4j80imiaf49srmd0s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "chemilmakhlouta.crapchatapp",
+            "certificate_hash": "87a1b64dbb5263a30572c01964f2d80e70a70745"
+          }
+        },
+        {
+          "client_id": "78262690213-hkmds8iler7cnum5cgfdehtatfvhv29q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGu-Mp-sX08jkvK6UhWHvlZM2-kQh1iAg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "78262690213-hkmds8iler7cnum5cgfdehtatfvhv29q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
