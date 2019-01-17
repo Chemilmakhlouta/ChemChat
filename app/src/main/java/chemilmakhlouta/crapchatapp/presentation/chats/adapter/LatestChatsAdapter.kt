@@ -24,7 +24,7 @@ class LatestChatsAdapter(private val context: Context) : RecyclerView.Adapter<Re
         val latestChatItem = chatsList[position]
         with(holder.itemView) {
             latestMessageDetail.text = latestChatItem.message
-            setOnClickListener { listItemClickListener.onchatsItemClicked(position) }
+            setOnClickListener { listItemClickListener.onchatsItemClicked(latestChatItem.toId) }
         }
     }
 
@@ -41,7 +41,7 @@ class LatestChatsAdapter(private val context: Context) : RecyclerView.Adapter<Re
     private class chatListItemViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     interface OnchatsListItemClickListener {
-        fun onchatsItemClicked(id: Int)
+        fun onchatsItemClicked(id: String?)
     }
 
     fun setchatsList(chats: MutableList<ChatResponse>) {

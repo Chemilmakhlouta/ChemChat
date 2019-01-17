@@ -38,7 +38,7 @@ class LatestChatsPresenter @Inject constructor() : Presenter, FirebaseCallBack, 
     // endregion
 
     // region UI Interactions
-    fun onChatClicked(id: Int) = router.navigateToChat(id)
+    fun onChatClicked(id: String?) = router.navigateToChat(id!!)
     // endregion
 
     private fun setChatsListener() =
@@ -73,7 +73,7 @@ class LatestChatsPresenter @Inject constructor() : Presenter, FirebaseCallBack, 
     }
 
     interface Router {
-        fun navigateToChat(id: Int)
+        fun navigateToChat(id: String)
         fun navigateToSelectUser()
     }
 }

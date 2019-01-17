@@ -62,10 +62,10 @@ class LatestChatsActivity : BaseActivity(), LatestChatsPresenter.Display, Latest
     override fun hideLoading() {
     }
 
-    override fun onchatsItemClicked(id: Int) = presenter.onChatClicked(id)
+    override fun onchatsItemClicked(id: String?) = presenter.onChatClicked(id)
 
-    override fun navigateToChat(id: Int) =
-            startActivity(Intent(ChatsListActivity.makeIntent(this, id.toString())))
+    override fun navigateToChat(id: String) =
+            startActivity(Intent(ChatsListActivity.makeIntent(this, id)))
 
     override fun navigateToSelectUser() =
         startActivity(Intent(SelectRecipientActivity.makeIntent(this)))

@@ -8,13 +8,14 @@ class ChatResponse(dataSnapshot: DataSnapshot) {
     var timeStamp: Long = 0
     var message: String? = null
     var fromId: String? = null
+    var toId: String? = null
 
     init {
         val `object` = dataSnapshot.value as HashMap<*, *>?
         this.msgKey = dataSnapshot.key
         this.message = `object`!!["text"].toString()
         this.fromId = `object`["fromId"].toString()
-//        this.timeStamp = java.lang.Long.parseLong(`object`["time"].toString())
-        this.timeStamp = 234
+        this.toId = `object`["toId"].toString()
+        this.timeStamp = java.lang.Long.parseLong(`object`["timestamp"].toString())
     }
 }
