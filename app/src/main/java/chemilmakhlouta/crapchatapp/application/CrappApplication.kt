@@ -8,6 +8,7 @@ import android.support.multidex.MultiDexApplication
 import chemilmakhlouta.crapchatapp.application.injection.component.ApplicationComponent
 import chemilmakhlouta.crapchatapp.application.injection.component.DaggerApplicationComponent
 import chemilmakhlouta.crapchatapp.application.injection.module.ApplicationModule
+import com.facebook.drawee.backends.pipeline.Fresco
 
 
 /**
@@ -27,5 +28,7 @@ class CrappApplication : MultiDexApplication() {
                 .build()
 
         applicationComponent.inject(this)
+
+        Fresco.initialize(this);
     }
 }
