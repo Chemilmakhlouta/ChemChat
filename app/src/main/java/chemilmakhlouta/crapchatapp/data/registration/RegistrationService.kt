@@ -8,7 +8,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import io.reactivex.Completable
-import kotlinx.android.synthetic.main.activity_register.*
+import io.reactivex.Single
+import io.reactivex.Single.create
 import java.util.*
 import javax.inject.Inject
 
@@ -29,14 +30,16 @@ class RegistrationService @Inject constructor() : RegistrationRepository {
         }
     }
 
-    override fun uploadImage(selectedPhotoUri: Uri): Completable {
-        return Completable.create { subscriber ->
+    override fun uploadImage(selectedPhotoUri: Uri): Single<String> {
+        return create { subscriber ->
             val filename = UUID.randomUUID().toString()
             val ref = FirebaseStorage.getInstance().getReference("/images/$filename")
 
             ref.putFile(selectedPhotoUri)
                     .addOnSuccessListener {
-                        subscriber.onComplete()
+                        ref.downloadUrl.addOnSuccessListener {
+                            subscriber.onSuccess(it.toString())
+                        }
                     }
                     .addOnFailureListener {
                         subscriber.onError(it)

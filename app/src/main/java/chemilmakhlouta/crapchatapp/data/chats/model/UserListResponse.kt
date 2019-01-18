@@ -16,3 +16,11 @@ fun mapUsers(dataSnapshot: DataSnapshot): ArrayList<User> {
 
     return userList
 }
+
+fun mapSingleUser(dataSnapshot: DataSnapshot): User {
+    val uid = dataSnapshot.child("uid").value.toString()
+    val username = dataSnapshot.child("username").value.toString()
+    val profileImageUrl = dataSnapshot.child("profileImageUrl").value.toString()
+
+    return User(uid, username, profileImageUrl)
+}

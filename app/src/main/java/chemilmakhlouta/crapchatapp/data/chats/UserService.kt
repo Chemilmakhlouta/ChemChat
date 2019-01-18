@@ -1,7 +1,7 @@
 package chemilmakhlouta.crapchatapp.data.chats
 
-import android.util.Log
 import chemilmakhlouta.crapchatapp.data.chats.model.ChatMessage
+import chemilmakhlouta.crapchatapp.data.chats.model.mapSingleUser
 import chemilmakhlouta.crapchatapp.data.chats.model.mapUsers
 import chemilmakhlouta.crapchatapp.data.registration.Model.User
 import com.google.firebase.auth.FirebaseAuth
@@ -9,20 +9,24 @@ import com.google.firebase.database.*
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.Single.create
+import java.lang.NullPointerException
 import javax.inject.Inject
 
 /**
  * Created by Chemil Makhlouta on 15/01/19.
  */
 
-class UserService @Inject constructor() : UserRepository {
+class UserService @Inject constructor(private val userDataStore: UserDataStore) : UserRepository {
+
     override fun sendChat(message: String, toUserId: String): Completable {
         val fromId = FirebaseAuth.getInstance().uid
 
         val reference = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toUserId").push()
         val toReference = FirebaseDatabase.getInstance().getReference("/user-messages/$toUserId/$fromId").push()
 
-        val chatMessage = ChatMessage(reference.key!!, message, fromId!!, toUserId, System.currentTimeMillis() / 1000)
+        val profileImage = userDataStore.profileImage ?: ""
+
+        val chatMessage = ChatMessage(reference.key!!, message, fromId!!, toUserId, System.currentTimeMillis() / 1000, profileImage)
 
         return Completable.create { subscriber ->
             reference.setValue(chatMessage)
@@ -56,5 +60,25 @@ class UserService @Inject constructor() : UserRepository {
             }
             )
         }
+    }
+
+    override fun getUser(): Single<User> {
+        val uid = FirebaseAuth.getInstance().uid
+        val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
+
+        return create { subscribe ->
+            ref.addListenerForSingleValueEvent(object : ValueEventListener {
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    subscribe.onSuccess(mapSingleUser(p0))
+                }
+
+                override fun onCancelled(p0: DatabaseError) = subscribe.onError(p0.toException())
+            })
+        }
+    }
+
+    override fun setUserProfileImage(profileImageUrl: String) {
+        userDataStore.profileImage = profileImageUrl
     }
 }

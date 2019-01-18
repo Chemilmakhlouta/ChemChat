@@ -5,7 +5,11 @@ import chemilmakhlouta.crapchatapp.application.callbackinterfaces.FirebaseCallBa
 import chemilmakhlouta.crapchatapp.application.callbackinterfaces.ModelCallBack
 import chemilmakhlouta.crapchatapp.data.chats.model.ChatResponse
 import chemilmakhlouta.crapchatapp.data.chats.model.LatestChatsManager
+import chemilmakhlouta.crapchatapp.data.registration.Model.User
+import chemilmakhlouta.crapchatapp.domain.chats.usecase.GetUsersUseCase
 import com.google.firebase.database.DataSnapshot
+import io.reactivex.Single
+import io.reactivex.disposables.Disposables
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -13,10 +17,13 @@ import javax.inject.Inject
  * Created by Chemil Makhlouta on 24/7/18.
  */
 
-class LatestChatsPresenter @Inject constructor() : Presenter, FirebaseCallBack, ModelCallBack {
+class LatestChatsPresenter @Inject constructor(private val getUsersUseCase: GetUsersUseCase) : Presenter, FirebaseCallBack, ModelCallBack {
 
     private lateinit var display: Display
     private lateinit var router: Router
+
+    private var getUserObservable: Single<User>? = null
+    private var getUserSubscription = Disposables.disposed()
 
     private val messagesMap = HashMap<String, ChatResponse>()
 
@@ -28,6 +35,7 @@ class LatestChatsPresenter @Inject constructor() : Presenter, FirebaseCallBack, 
 
     override fun onStart() {
         setChatsListener()
+        getCurrentUser()
     }
 
 //    override fun onResume() = getChats()
@@ -47,6 +55,33 @@ class LatestChatsPresenter @Inject constructor() : Presenter, FirebaseCallBack, 
     private fun removeChatListener() {
         LatestChatsManager.getInstance(this)!!.removeListener()
         LatestChatsManager.getInstance(this)!!.destroy()
+    }
+
+    private fun getCurrentUser() {
+        if (getUserObservable == null) {
+            getUserObservable = getUsersUseCase.getUser()
+                    .doOnSubscribe { display.showLoading() }
+                    .doAfterTerminate {
+                        display.hideLoading()
+                        getUserObservable = null
+                    }
+
+            subscribeToGetUser()
+        }
+    }
+
+    private fun subscribeToGetUser() {
+        getUserObservable?.let {
+            getUserSubscription = it.subscribe(this::onGetUserSuccess, this::onGetUserFailure)
+        }
+    }
+
+    private fun onGetUserSuccess(user: User) {
+        getUsersUseCase.setUserProfileImage(user.profileImageUrl)
+    }
+
+    private fun onGetUserFailure(throwable: Throwable) {
+        display.showError()
     }
 
     override fun onNewMessage(dataSnapshot: DataSnapshot) {

@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.item_latest_chat.view.*
 import com.facebook.drawee.view.SimpleDraweeView
 
 
-
 /**
  * Created by Chemil Makhlouta on 24/6/18.
  */
@@ -31,7 +30,8 @@ class LatestChatsAdapter(private val context: Context) : RecyclerView.Adapter<Re
             setOnClickListener { listItemClickListener.onchatsItemClicked(latestChatItem.toId) }
 
             //TODO: switch to attaining dynamic photo once object structure for latest message is done
-            profilePicture.setImageURI("https://raw.githubusercontent.com/facebook/fresco/master/docs/static/logo.png")
+            profilePicture.setImageURI(latestChatItem.profileImage)
+
         }
     }
 

@@ -10,4 +10,6 @@ import io.reactivex.Single
 interface UserRepository {
     fun getUsers(): Single<ArrayList<User>>
     fun sendChat(message: String, toUserId: String): Completable
+    fun getUser(): Single<User>
+    fun setUserProfileImage(profileImageUrl: String)
 }

@@ -1,10 +1,12 @@
 package chemilmakhlouta.crapchatapp.presentation.registration.presenter
 
 import android.net.Uri
-import android.util.Log
 import chemilmakhlouta.crapchatapp.application.Presenter
+import chemilmakhlouta.crapchatapp.data.registration.Model.User
+import chemilmakhlouta.crapchatapp.domain.chats.usecase.GetUsersUseCase
 import chemilmakhlouta.crapchatapp.domain.registration.usecase.RegistrationUseCase
 import io.reactivex.Completable
+import io.reactivex.Single
 import io.reactivex.disposables.Disposables
 import javax.inject.Inject
 
@@ -12,7 +14,8 @@ import javax.inject.Inject
  * Created by Chemil Makhlouta on 24/7/18.
  */
 
-class RegisterPresenter @Inject constructor(private val registrationUseCase: RegistrationUseCase) : Presenter {
+class RegisterPresenter @Inject constructor(private val registrationUseCase: RegistrationUseCase,
+                                            private val getUsersUseCase: GetUsersUseCase) : Presenter {
 
     private lateinit var display: Display
     private lateinit var router: Router
@@ -20,7 +23,7 @@ class RegisterPresenter @Inject constructor(private val registrationUseCase: Reg
     private var registerObservable: Completable? = null
     private var registerSubscription = Disposables.disposed()
 
-    private var saveImageObservable: Completable? = null
+    private var saveImageObservable: Single<String>? = null
     private var saveImageSubscription = Disposables.disposed()
 
     private var saveUserObservable: Completable? = null
@@ -61,9 +64,9 @@ class RegisterPresenter @Inject constructor(private val registrationUseCase: Reg
         }
     }
 
-    private fun saveUser() {
+    private fun saveUser(profileImageUrl: String) {
         if (saveUserObservable == null) {
-            saveUserObservable = registrationUseCase.saveUser(username, selectedImageUri.toString())
+            saveUserObservable = registrationUseCase.saveUser(username, profileImageUrl)
                     .doOnSubscribe { display.showLoading() }
                     .doAfterTerminate {
                         saveUserObservable = null
@@ -95,8 +98,8 @@ class RegisterPresenter @Inject constructor(private val registrationUseCase: Reg
         uploadImage()
     }
 
-    private fun onImageUploadSuccess() {
-        saveUser()
+    private fun onImageUploadSuccess(profileImageUrl: String) {
+        saveUser(profileImageUrl)
     }
 
     private fun onSaveUserSuccess() {

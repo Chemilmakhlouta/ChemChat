@@ -1,5 +1,6 @@
 package chemilmakhlouta.crapchatapp.application.injection.module
 
+import chemilmakhlouta.crapchatapp.data.chats.UserDataStore
 import chemilmakhlouta.crapchatapp.data.chats.UserRepository
 import chemilmakhlouta.crapchatapp.data.chats.UserService
 import chemilmakhlouta.crapchatapp.data.login.LoginRepository
@@ -15,7 +16,7 @@ import javax.inject.Singleton
  */
 
 @Module
-class IdentityModule {
+class UserModule {
 
     @Provides
     @Singleton
@@ -27,5 +28,10 @@ class IdentityModule {
 
     @Provides
     @Singleton
-    fun providesUserRepository(): UserRepository = UserService()
+    fun providesUserRepository(userDataStore: UserDataStore): UserRepository = UserService(userDataStore)
+
+
+    @Provides
+    @Singleton
+    fun providesUserDataStore(): UserDataStore = UserDataStore()
 }
