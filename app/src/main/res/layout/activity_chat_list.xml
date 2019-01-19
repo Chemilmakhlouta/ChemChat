@@ -6,10 +6,11 @@
 
     <Button
         android:id="@+id/newMessageButton"
+        style="@style/Button.Primary"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_margin="20dp"
-        android:text="New Message"/>
+        android:layout_height="60dp"
+        android:layout_margin="16dp"
+        android:text="New Message" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/chatsList"

@@ -37,17 +37,12 @@
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <Button
+        style="@style/Button.Primary"
         android:id="@+id/loginButton"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/rounded_button"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?attr/selectableItemBackground"
         android:text="Login"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/password"
         app:layout_constraintStart_toStartOf="@+id/password"
         app:layout_constraintTop_toBottomOf="@+id/password" />

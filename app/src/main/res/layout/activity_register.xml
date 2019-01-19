@@ -52,16 +52,11 @@
 
     <Button
         android:id="@+id/registerButton"
+        style="@style/Button.Primary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@drawable/rounded_button"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?attr/selectableItemBackground"
         android:text="Register"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/registerPassword"
         app:layout_constraintStart_toStartOf="@+id/registerPassword"
         app:layout_constraintTop_toBottomOf="@+id/registerPassword" />
@@ -85,6 +80,7 @@
 
     <Button
         android:id="@+id/selectPhotoButton"
+        style="@style/Button.Primary"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="8dp"
