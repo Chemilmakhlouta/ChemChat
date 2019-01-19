@@ -2,8 +2,6 @@ package chemilmakhlouta.crapchatapp.presentation.registration.presenter
 
 import android.net.Uri
 import chemilmakhlouta.crapchatapp.application.Presenter
-import chemilmakhlouta.crapchatapp.data.registration.Model.User
-import chemilmakhlouta.crapchatapp.domain.chats.usecase.GetUsersUseCase
 import chemilmakhlouta.crapchatapp.domain.registration.usecase.RegistrationUseCase
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -14,8 +12,7 @@ import javax.inject.Inject
  * Created by Chemil Makhlouta on 24/7/18.
  */
 
-class RegisterPresenter @Inject constructor(private val registrationUseCase: RegistrationUseCase,
-                                            private val getUsersUseCase: GetUsersUseCase) : Presenter {
+class RegisterPresenter @Inject constructor(private val registrationUseCase: RegistrationUseCase) : Presenter {
 
     private lateinit var display: Display
     private lateinit var router: Router
@@ -32,7 +29,7 @@ class RegisterPresenter @Inject constructor(private val registrationUseCase: Reg
     private lateinit var email: String
     private lateinit var username: String
     private lateinit var password: String
-    private lateinit var selectedImageUri: Uri
+    private var selectedImageUri: Uri? = null
     // region lifecycle
     fun inject(display: Display, router: Router) {
         this.display = display
@@ -54,7 +51,7 @@ class RegisterPresenter @Inject constructor(private val registrationUseCase: Reg
 
     private fun uploadImage() {
         if (saveImageObservable == null) {
-            saveImageObservable = registrationUseCase.uploadImage(selectedImageUri)
+            saveImageObservable = registrationUseCase.uploadImage(selectedImageUri!!)
                     .doOnSubscribe { display.showLoading() }
                     .doAfterTerminate {
                         saveImageObservable = null
@@ -112,11 +109,15 @@ class RegisterPresenter @Inject constructor(private val registrationUseCase: Reg
     }
 
     fun onRegisterClicked(email: String, username: String, password: String) {
-        this.email = email
-        this.username = username
-        this.password = password
+        if (email.isEmpty() || username.isEmpty() || password.isEmpty() || selectedImageUri == null) {
+            display.showError("Please fill all required fields")
+        } else {
+            this.email = email
+            this.username = username
+            this.password = password
 
-        register()
+            register()
+        }
     }
 
     fun onAlreadyRegisteredClicked() {

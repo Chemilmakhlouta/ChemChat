@@ -49,11 +49,17 @@ class LoginPresenter @Inject constructor(private val loginUseCase: LoginUseCase)
         router.navigateToLatestChats()
     }
 
-    private fun onLoginFailure(throwable: Throwable) = display.showError()
+    private fun onLoginFailure(throwable: Throwable) = display.showError(throwable.message)
     // endregion
 
     // region public functions
-    fun onLoginButtonClicked(email: String, password: String) = login(email, password)
+    fun onLoginButtonClicked(email: String, password: String) {
+        if (email.isEmpty() || password.isEmpty()) {
+            display.showError("Please fill all required fields")
+        } else {
+            login(email, password)
+        }
+    }
 
     fun onBackToRegistrationClicked() = router.backToRegistration()
 
@@ -62,7 +68,7 @@ class LoginPresenter @Inject constructor(private val loginUseCase: LoginUseCase)
     interface Display {
         fun showLoading()
         fun hideLoading()
-        fun showError()
+        fun showError(message: String?)
     }
 
     interface Router {

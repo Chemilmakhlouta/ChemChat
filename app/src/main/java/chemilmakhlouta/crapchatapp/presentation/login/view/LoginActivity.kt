@@ -39,8 +39,8 @@ class LoginActivity : BaseActivity(), LoginPresenter.Display, LoginPresenter.Rou
 
     override fun navigateToLatestChats() = startActivity(Intent(LatestChatsActivity.makeIntent(this)))
 
-    override fun showError() {
-        Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show()
+    override fun showError(message: String?) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
     override fun hideLoading() {
