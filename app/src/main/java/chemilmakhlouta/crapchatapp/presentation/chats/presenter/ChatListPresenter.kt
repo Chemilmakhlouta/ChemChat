@@ -96,7 +96,13 @@ class ChatListPresenter @Inject constructor(private val sendChatUseCase: SendCha
         this.toUserId = toUserId
     }
 
-    fun onSendChatClicked(message: String) = sendChat(message)
+    fun onSendChatClicked(message: String) {
+        if(message.isEmpty()) {
+            display.showError("Enter some text!")
+        }  else {
+            sendChat(message)
+        }
+    }
     // endRegion
 
     interface Display {

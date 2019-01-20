@@ -31,7 +31,6 @@ class LatestChatsAdapter(private val context: Context) : RecyclerView.Adapter<Re
             latestMessageDetail.text = latestChatItem.message
             setOnClickListener { listItemClickListener.onchatsItemClicked(latestChatItem.toId) }
 
-            //TODO: switch to attaining dynamic photo once object structure for latest message is done
             profilePicture.hierarchy = GenericDraweeHierarchyBuilder(resources)
                     .setRoundingParams(roundingParams)
                     .build()
