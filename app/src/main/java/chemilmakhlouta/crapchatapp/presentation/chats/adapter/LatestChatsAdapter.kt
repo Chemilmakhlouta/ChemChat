@@ -1,7 +1,6 @@
 package chemilmakhlouta.crapchatapp.presentation.chats.adapter
 
 import android.content.Context
-import android.net.Uri
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,8 @@ import android.view.ViewGroup
 import chemilmakhlouta.crapchatapp.R
 import chemilmakhlouta.crapchatapp.data.chats.model.ChatResponse
 import kotlinx.android.synthetic.main.item_latest_chat.view.*
-import com.facebook.drawee.view.SimpleDraweeView
+import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder
+import com.facebook.drawee.generic.RoundingParams
 
 
 /**
@@ -21,6 +21,8 @@ class LatestChatsAdapter(private val context: Context) : RecyclerView.Adapter<Re
 
     private lateinit var listItemClickListener: OnchatsListItemClickListener
 
+    private val roundingParams = RoundingParams.fromCornersRadius(7f).setRoundAsCircle(true)
+
     override fun getItemViewType(position: Int): Int = position
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -30,6 +32,9 @@ class LatestChatsAdapter(private val context: Context) : RecyclerView.Adapter<Re
             setOnClickListener { listItemClickListener.onchatsItemClicked(latestChatItem.toId) }
 
             //TODO: switch to attaining dynamic photo once object structure for latest message is done
+            profilePicture.hierarchy = GenericDraweeHierarchyBuilder(resources)
+                    .setRoundingParams(roundingParams)
+                    .build()
             profilePicture.setImageURI(latestChatItem.profileImage)
 
         }
