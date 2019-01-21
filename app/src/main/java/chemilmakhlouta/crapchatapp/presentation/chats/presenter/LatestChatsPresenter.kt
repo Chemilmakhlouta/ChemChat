@@ -77,7 +77,7 @@ class LatestChatsPresenter @Inject constructor(private val getUsersUseCase: GetU
     }
 
     private fun onGetUserSuccess(user: User) {
-        getUsersUseCase.setUserProfileImage(user.profileImageUrl)
+        getUsersUseCase.setUserProfileImage(user)
     }
 
     private fun onGetUserFailure(throwable: Throwable) {

@@ -5,11 +5,9 @@ import chemilmakhlouta.crapchatapp.application.callbackinterfaces.FirebaseCallBa
 import chemilmakhlouta.crapchatapp.application.callbackinterfaces.ModelCallBack
 import chemilmakhlouta.crapchatapp.data.chats.model.ChatManager
 import chemilmakhlouta.crapchatapp.data.chats.model.ChatResponse
-import chemilmakhlouta.crapchatapp.data.registration.Model.User
 import chemilmakhlouta.crapchatapp.domain.chats.usecase.SendChatUseCase
 import com.google.firebase.database.DataSnapshot
 import io.reactivex.Completable
-import io.reactivex.Single
 import io.reactivex.disposables.Disposables
 import java.util.ArrayList
 import javax.inject.Inject

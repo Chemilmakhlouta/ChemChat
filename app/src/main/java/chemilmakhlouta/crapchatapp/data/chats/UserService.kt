@@ -9,7 +9,6 @@ import com.google.firebase.database.*
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.Single.create
-import java.lang.NullPointerException
 import javax.inject.Inject
 
 /**
@@ -24,9 +23,9 @@ class UserService @Inject constructor(private val userDataStore: UserDataStore) 
         val reference = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toUserId").push()
         val toReference = FirebaseDatabase.getInstance().getReference("/user-messages/$toUserId/$fromId").push()
 
-        val profileImage = userDataStore.profileImage ?: ""
+        val user: User? = userDataStore.user ?: User()
 
-        val chatMessage = ChatMessage(reference.key!!, message, fromId!!, toUserId, System.currentTimeMillis() / 1000, profileImage)
+        val chatMessage = ChatMessage(reference.key!!, message, fromId!!, toUserId, System.currentTimeMillis() / 1000, user!!.profileImageUrl)
 
         return Completable.create { subscriber ->
             reference.setValue(chatMessage)
@@ -78,7 +77,7 @@ class UserService @Inject constructor(private val userDataStore: UserDataStore) 
         }
     }
 
-    override fun setUserProfileImage(profileImageUrl: String) {
-        userDataStore.profileImage = profileImageUrl
+    override fun setUserProfileImage(user: User) {
+        userDataStore.user = user
     }
 }

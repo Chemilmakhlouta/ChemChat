@@ -1,6 +1,8 @@
 package chemilmakhlouta.crapchatapp.data.chats
 
+import chemilmakhlouta.crapchatapp.data.registration.Model.User
+
 open class UserDataStore {
 
-    var profileImage: String? = null
+    var user: User? = null
 }

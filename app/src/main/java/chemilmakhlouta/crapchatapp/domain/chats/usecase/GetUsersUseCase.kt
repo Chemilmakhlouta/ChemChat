@@ -17,5 +17,5 @@ class GetUsersUseCase @Inject constructor(private val userRepository: UserReposi
 
     fun getUser(): Single<User> = userRepository.getUser()
 
-    fun setUserProfileImage(profileImageUrl: String): Unit = userRepository.setUserProfileImage(profileImageUrl)
+    fun setUserProfileImage(user: User): Unit = userRepository.setUserProfileImage(user)
 }
