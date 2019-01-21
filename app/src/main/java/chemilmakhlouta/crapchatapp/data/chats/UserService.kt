@@ -33,7 +33,7 @@ class UserService @Inject constructor(private val userDataStore: UserDataStore) 
                         toReference.setValue(chatMessage)
 
                         val latestMessageRef = FirebaseDatabase.getInstance().getReference("/latest-messages/$fromId/$toUserId")
-                        latestMessageRef.setValue(chatMessage)
+                        latestMessageRef.updateChildren(mapOf(Pair("id", chatMessage.id), Pair("text", chatMessage.text), Pair("timestamp", chatMessage.timestamp)))
 
                         val latestMessageToRef = FirebaseDatabase.getInstance().getReference("/latest-messages/$toUserId/$fromId")
                         latestMessageToRef.setValue(chatMessage)
