@@ -4,4 +4,15 @@
     <string name="location">Location</string>
     <string name="keywords">Job keywords</string>
     <string name="error">An error has occurred</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="new_message">New Message</string>
+    <string name="send">Send</string>
+    <string name="enter_message">Enter Message</string>
+    <string name="select_photo">Select Photo</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="username">Username</string>
+    <string name="latest_message">Latest Message</string>
 </resources>
