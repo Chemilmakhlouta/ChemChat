@@ -15,10 +15,6 @@ import kotlinx.android.synthetic.main.activity_register.*
 import javax.inject.Inject
 import android.view.View
 
-
-
-
-
 /**
  * Created by Chemil Makhlouta on 15/01/19.
  */

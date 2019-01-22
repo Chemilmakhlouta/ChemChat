@@ -62,7 +62,6 @@ class LoginPresenter @Inject constructor(private val loginUseCase: LoginUseCase)
     }
 
     fun onBackToRegistrationClicked() = router.backToRegistration()
-
     // endregion
 
     interface Display {

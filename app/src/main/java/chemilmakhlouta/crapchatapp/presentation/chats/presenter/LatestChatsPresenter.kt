@@ -39,9 +39,8 @@ class LatestChatsPresenter @Inject constructor(private val getUsersUseCase: GetU
     }
 
 //    override fun onResume() = getChats()
-//
 //    override fun onPause() = getChatsListSubscription.dispose()
-//
+
     override fun onStop() = removeChatListener()
     // endregion
 

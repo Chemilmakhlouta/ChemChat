@@ -30,11 +30,14 @@ class RegisterPresenter @Inject constructor(private val registrationUseCase: Reg
     private lateinit var username: String
     private lateinit var password: String
     private var selectedImageUri: Uri? = null
+
     // region lifecycle
     fun inject(display: Display, router: Router) {
         this.display = display
         this.router = router
     }
+
+    // endRegion
 
     // region Private Functions
     private fun register() {
@@ -73,41 +76,34 @@ class RegisterPresenter @Inject constructor(private val registrationUseCase: Reg
         }
     }
 
-    private fun subscribeToRegister() {
+    private fun subscribeToRegister() =
         registerObservable?.let {
             registerSubscription = it.subscribe(this::onRegisterSuccess, this::onRegisterFailure)
         }
-    }
 
-    private fun subscribeToUploadImage() {
+    private fun subscribeToUploadImage() =
         saveImageObservable?.let {
             saveImageSubscription = it.subscribe(this::onImageUploadSuccess, this::onRegisterFailure)
         }
-    }
 
-    private fun subscribeToSaveUser() {
+    private fun subscribeToSaveUser() =
         saveUserObservable?.let {
             saveUserSubscription = it.subscribe(this::onSaveUserSuccess, this::onRegisterFailure)
         }
-    }
 
-    private fun onRegisterSuccess() {
-        uploadImage()
-    }
+    private fun onRegisterSuccess() = uploadImage()
 
-    private fun onImageUploadSuccess(profileImageUrl: String) {
-        saveUser(profileImageUrl)
-    }
+    private fun onImageUploadSuccess(profileImageUrl: String) = saveUser(profileImageUrl)
 
-    private fun onSaveUserSuccess() {
-        router.navigateToLogin()
-    }
+    private fun onSaveUserSuccess() = router.navigateToLogin()
 
     private fun onRegisterFailure(throwable: Throwable) {
         display.hideLoading()
         display.showError(throwable.message!!)
     }
+    // endRegion
 
+    // region Public Functions
     fun onRegisterClicked(email: String, username: String, password: String) {
         if (email.isEmpty() || username.isEmpty() || password.isEmpty() || selectedImageUri == null) {
             display.showError("Please fill all required fields")

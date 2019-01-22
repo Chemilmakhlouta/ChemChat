@@ -27,6 +27,7 @@ class ChatListPresenter @Inject constructor(private val sendChatUseCase: SendCha
 
     private var sendChatObservable: Completable? = null
     private var sendChatSubscription = Disposables.disposed()
+
     // region lifecycle
     fun inject(display: Display, router: Router) {
         this.display = display
@@ -36,16 +37,16 @@ class ChatListPresenter @Inject constructor(private val sendChatUseCase: SendCha
     override fun onStart() {
         setChatListener()
     }
-//
+
 //    override fun onResume() = getChats()
-////
 //    override fun onPause() = getChatsListSubscription.dispose()
-//
+
     override fun onStop() {
         removeChatListener()
     }
     // endregion
 
+    // region Private functions
     override fun onNewMessage(dataSnapshot: DataSnapshot) {
         chatsList.add(ChatResponse(dataSnapshot))
         onModelUpdated(chatsList)
@@ -58,12 +59,8 @@ class ChatListPresenter @Inject constructor(private val sendChatUseCase: SendCha
     }
 
     private fun setChatListener() =
-        ChatManager.getInstance(toUserId, this)!!.addMessageListeners()
+            ChatManager.getInstance(toUserId, this)!!.addMessageListeners()
 
-    fun removeChatListener() {
-        ChatManager.getInstance(toUserId, this)!!.removeListener()
-        ChatManager.getInstance(toUserId, this)!!.destroy()
-    }
 
     private fun sendChat(message: String) {
         if (sendChatObservable == null) {
@@ -89,15 +86,22 @@ class ChatListPresenter @Inject constructor(private val sendChatUseCase: SendCha
     private fun onSendChatFailure(throwable: Throwable) {
         display.showError(throwable.message!!)
     }
-    // public functions
+    // endregion
+
+    // region public functions
+    fun removeChatListener() {
+        ChatManager.getInstance(toUserId, this)!!.removeListener()
+        ChatManager.getInstance(toUserId, this)!!.destroy()
+    }
+
     fun onIntentReceived(toUserId: String) {
         this.toUserId = toUserId
     }
 
     fun onSendChatClicked(message: String) {
-        if(message.isEmpty()) {
+        if (message.isEmpty()) {
             display.showError("Enter some text!")
-        }  else {
+        } else {
             sendChat(message)
         }
     }
