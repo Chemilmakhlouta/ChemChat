@@ -1,7 +1,9 @@
 package chemilmakhlouta.crapchatapp.presentation.chats.view
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
@@ -45,7 +47,17 @@ class ChatsListActivity : BaseActivity(), ChatListPresenter.Display, ChatListPre
         }
 
         sendChatButton.setOnClickListener { presenter.onSendChatClicked(chatText.text.toString()) }
+        addPhoto.setOnClickListener { presenter.onAddPhotoClicked() }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
+            presenter.onPhotoSelected(data.data)
+        }
+    }
+
 
     override fun inject(activityComponent: ActivityComponent) {
         activityComponent.inject(this)
@@ -64,5 +76,15 @@ class ChatsListActivity : BaseActivity(), ChatListPresenter.Display, ChatListPre
     override fun clearTextAndScroll() {
         chatText.text.clear()
         chatList.scrollToPosition(chatAdapter.itemCount - 1)
+    }
+
+    override fun showSelectedImage(selectedImageUri: Uri) {
+
+    }
+
+    override fun navigateToImageSelection() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, 0)
     }
 }

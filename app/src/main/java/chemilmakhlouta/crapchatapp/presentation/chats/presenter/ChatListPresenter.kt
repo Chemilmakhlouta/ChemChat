@@ -1,5 +1,6 @@
 package chemilmakhlouta.crapchatapp.presentation.chats.presenter
 
+import android.net.Uri
 import chemilmakhlouta.crapchatapp.application.Presenter
 import chemilmakhlouta.crapchatapp.application.callbackinterfaces.FirebaseCallBack
 import chemilmakhlouta.crapchatapp.application.callbackinterfaces.ModelCallBack
@@ -15,7 +16,6 @@ import javax.inject.Inject
 /**
  * Created by Chemil Makhlouta on 24/7/18.
  */
-
 class ChatListPresenter @Inject constructor(private val sendChatUseCase: SendChatUseCase) : Presenter, FirebaseCallBack, ModelCallBack {
 
     private lateinit var display: Display
@@ -105,6 +105,12 @@ class ChatListPresenter @Inject constructor(private val sendChatUseCase: SendCha
             sendChat(message)
         }
     }
+
+    fun onPhotoSelected(selectedImageUri: Uri) {
+        display.showSelectedImage(selectedImageUri)
+    }
+
+    fun onAddPhotoClicked() = router.navigateToImageSelection()
     // endRegion
 
     interface Display {
@@ -112,8 +118,10 @@ class ChatListPresenter @Inject constructor(private val sendChatUseCase: SendCha
         fun showError(message: String)
 
         fun clearTextAndScroll()
+        fun showSelectedImage(selectedImageUri: Uri)
     }
 
     interface Router {
+        fun navigateToImageSelection()
     }
 }
