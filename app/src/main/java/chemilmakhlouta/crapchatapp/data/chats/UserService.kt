@@ -43,7 +43,6 @@ class UserService @Inject constructor(private val userDataStore: UserDataStore) 
         }
     }
 
-
     override fun getUsers(): Single<ArrayList<User>> {
         return create { subscriber ->
             val ref = FirebaseDatabase.getInstance().getReference("/users")
