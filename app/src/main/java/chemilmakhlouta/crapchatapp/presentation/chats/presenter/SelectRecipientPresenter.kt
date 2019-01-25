@@ -61,6 +61,7 @@ class SelectRecipientPresenter @Inject constructor(private val getUsersUseCase: 
 
         fun showError(message: String)
     }
+
     interface Router {
     }
 }

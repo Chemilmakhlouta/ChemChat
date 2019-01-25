@@ -10,7 +10,7 @@ import javax.inject.Inject
  * Created by Chemil Makhlouta on 24/7/19.
  */
 @Mockable
-class GetUsersUseCase @Inject constructor(private val userRepository: UserRepository) {
+class GetSpecificUserUseCase @Inject constructor(private val userRepository: UserRepository) {
 
-    fun getUsers(): Single<ArrayList<User>> = userRepository.getUsers()
+    fun getUser(): Single<User> = userRepository.getUser()
 }

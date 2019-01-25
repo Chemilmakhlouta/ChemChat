@@ -6,7 +6,8 @@ import chemilmakhlouta.crapchatapp.application.callbackinterfaces.ModelCallBack
 import chemilmakhlouta.crapchatapp.data.chats.model.ChatResponse
 import chemilmakhlouta.crapchatapp.data.chats.model.LatestChatsManager
 import chemilmakhlouta.crapchatapp.data.registration.Model.User
-import chemilmakhlouta.crapchatapp.domain.chats.usecase.GetUsersUseCase
+import chemilmakhlouta.crapchatapp.domain.chats.usecase.GetSpecificUserUseCase
+import chemilmakhlouta.crapchatapp.domain.chats.usecase.SetUserProfileImageUseCase
 import com.google.firebase.database.DataSnapshot
 import io.reactivex.Single
 import io.reactivex.disposables.Disposables
@@ -17,7 +18,8 @@ import javax.inject.Inject
  * Created by Chemil Makhlouta on 24/7/18.
  */
 
-class LatestChatsPresenter @Inject constructor(private val getUsersUseCase: GetUsersUseCase) : Presenter, FirebaseCallBack, ModelCallBack {
+class LatestChatsPresenter @Inject constructor(private val getSpecificUserUseCase: GetSpecificUserUseCase,
+                                               private val setUserProfileImageUseCase: SetUserProfileImageUseCase) : Presenter, FirebaseCallBack, ModelCallBack {
 
     private lateinit var display: Display
     private lateinit var router: Router
@@ -48,8 +50,7 @@ class LatestChatsPresenter @Inject constructor(private val getUsersUseCase: GetU
     fun onChatClicked(id: String?) = router.navigateToChat(id!!)
     // endregion
 
-    private fun setChatsListener() =
-        LatestChatsManager.getInstance(this)!!.addMessageListeners()
+    private fun setChatsListener() = LatestChatsManager.getInstance(this)!!.addMessageListeners()
 
     private fun removeChatListener() {
         LatestChatsManager.getInstance(this)!!.removeListener()
@@ -58,7 +59,7 @@ class LatestChatsPresenter @Inject constructor(private val getUsersUseCase: GetU
 
     private fun getCurrentUser() {
         if (getUserObservable == null) {
-            getUserObservable = getUsersUseCase.getUser()
+            getUserObservable = getSpecificUserUseCase.getUser()
                     .doOnSubscribe { display.showLoading() }
                     .doAfterTerminate {
                         display.hideLoading()
@@ -75,13 +76,9 @@ class LatestChatsPresenter @Inject constructor(private val getUsersUseCase: GetU
         }
     }
 
-    private fun onGetUserSuccess(user: User) {
-        getUsersUseCase.setUserProfileImage(user)
-    }
+    private fun onGetUserSuccess(user: User) = setUserProfileImageUseCase.setUserProfileImage(user)
 
-    private fun onGetUserFailure(throwable: Throwable) {
-        display.showError()
-    }
+    private fun onGetUserFailure(throwable: Throwable) = display.showError()
 
     override fun onNewMessage(dataSnapshot: DataSnapshot) {
         val chatMessage = ChatResponse(dataSnapshot)
