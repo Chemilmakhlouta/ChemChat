@@ -47,7 +47,9 @@ class LatestChatsPresenter @Inject constructor(private val getSpecificUserUseCas
     // endregion
 
     // region UI Interactions
-    fun onChatClicked(id: String?) = router.navigateToChat(id!!)
+    fun onChatClicked(id: String?) = id?.let {
+        router.navigateToChat(id)
+    } ?: display.showError()
     // endregion
 
     private fun setChatsListener() = LatestChatsManager.getInstance(this)!!.addMessageListeners()

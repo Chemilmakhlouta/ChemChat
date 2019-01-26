@@ -29,7 +29,7 @@ class LatestChatsAdapter(private val context: Context) : RecyclerView.Adapter<Re
         val latestChatItem = chatsList[position]
         with(holder.itemView) {
             latestMessageDetail.text = latestChatItem.message
-            setOnClickListener { listItemClickListener.onchatsItemClicked(latestChatItem.toId) }
+            setOnClickListener { listItemClickListener.onchatsItemClicked(latestChatItem.fromId) }
 
             profilePicture.hierarchy = GenericDraweeHierarchyBuilder(resources)
                     .setRoundingParams(roundingParams)
