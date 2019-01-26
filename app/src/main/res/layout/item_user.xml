@@ -5,13 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="120dp">
 
-    <ImageView
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/profilePicture"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import chemilmakhlouta.crapchatapp.R
-import chemilmakhlouta.crapchatapp.data.chats.model.ChatResponse
 import chemilmakhlouta.crapchatapp.data.registration.Model.User
+import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder
+import com.facebook.drawee.generic.RoundingParams
 import kotlinx.android.synthetic.main.item_user.view.*
 
 /**
@@ -18,6 +19,7 @@ class RecipientAdapter(private val context: Context) : RecyclerView.Adapter<Recy
     private var usersList: List<User> = emptyList()
 
     private lateinit var listItemClickListener: onUserItemClickedListener
+    private val roundingParams = RoundingParams.fromCornersRadius(7f).setRoundAsCircle(true)
 
     override fun getItemViewType(position: Int): Int = position
 
@@ -25,6 +27,12 @@ class RecipientAdapter(private val context: Context) : RecyclerView.Adapter<Recy
         val userItem = usersList[position]
         with(holder.itemView) {
             username.text = userItem.username
+
+            profilePicture.hierarchy = GenericDraweeHierarchyBuilder(resources)
+                    .setRoundingParams(roundingParams)
+                    .build()
+            profilePicture.setImageURI(userItem.profileImageUrl)
+
             setOnClickListener { listItemClickListener.onUserItemClicked(userItem.uid) }
         }
     }
