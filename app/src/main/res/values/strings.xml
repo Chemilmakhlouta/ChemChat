@@ -1,8 +1,5 @@
 <resources>
-    <string name="app_name">CrapApp</string>
-    <string name="seek">SEEK</string>
-    <string name="location">Location</string>
-    <string name="keywords">Job keywords</string>
+    <string name="app_name">ChemChat</string>
     <string name="error">An error has occurred</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
