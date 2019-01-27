@@ -8,17 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:78262690213:android:3fb50fe7bc166150",
+        "mobilesdk_app_id": "1:78262690213:android:454b3a9e80db3fb3",
         "android_client_info": {
-          "package_name": "chemilmakhlouta.crapchatapp"
+          "package_name": "chemilmakhlouta.chemchatapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "78262690213-plbbiebp6tom70g4j80imiaf49srmd0s.apps.googleusercontent.com",
+          "client_id": "78262690213-0b8e83ss6h3kkldjd9mtj02712010pld.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "chemilmakhlouta.crapchatapp",
+            "package_name": "chemilmakhlouta.chemchatapp",
             "certificate_hash": "87a1b64dbb5263a30572c01964f2d80e70a70745"
           }
         },
