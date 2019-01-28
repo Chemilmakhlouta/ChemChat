@@ -95,6 +95,7 @@
             android:layout_height="10dp"
             android:layout_gravity="center_vertical"
             android:layout_marginTop="5dp"
-            android:src="@drawable/purple_node_bg" />
+            android:src="@drawable/purple_node_bg"
+            android:tint="@android:color/holo_blue_dark" />
     </LinearLayout>
 </LinearLayout>
