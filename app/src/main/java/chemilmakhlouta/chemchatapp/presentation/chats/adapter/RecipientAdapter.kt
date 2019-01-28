@@ -18,7 +18,7 @@ class RecipientAdapter(private val context: Context) : RecyclerView.Adapter<Recy
 
     private var usersList: List<User> = emptyList()
 
-    private lateinit var listItemClickListener: onUserItemClickedListener
+    private lateinit var listItemClickListener: OnUserItemClickedListener
     private val roundingParams = RoundingParams.fromCornersRadius(7f).setRoundAsCircle(true)
 
     override fun getItemViewType(position: Int): Int = position
@@ -40,16 +40,16 @@ class RecipientAdapter(private val context: Context) : RecyclerView.Adapter<Recy
     override fun getItemCount(): Int = usersList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return chatListItemViewHolder(LayoutInflater.from(context).inflate(R.layout.item_user, parent, false))
+        return ChatListItemViewHolder(LayoutInflater.from(context).inflate(R.layout.item_user, parent, false))
     }
 
-    fun setchatsListItemClickListener(listener: onUserItemClickedListener) {
+    fun setchatsListItemClickListener(listener: OnUserItemClickedListener) {
         listItemClickListener = listener
     }
 
-    private class chatListItemViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    private class ChatListItemViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
-    interface onUserItemClickedListener {
+    interface OnUserItemClickedListener {
         fun onUserItemClicked(userId: String)
     }
 

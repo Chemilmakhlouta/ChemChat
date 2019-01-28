@@ -41,10 +41,10 @@ class ChatListAdapter(private val context: Context) : RecyclerView.Adapter<Recyc
     override fun getItemCount(): Int = chatsList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return chatListItemViewHolder(LayoutInflater.from(context).inflate(R.layout.item_chat, parent, false))
+        return ChatListItemViewHolder(LayoutInflater.from(context).inflate(R.layout.item_chat, parent, false))
     }
 
-    private class chatListItemViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    private class ChatListItemViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     fun setchatsList(chats: MutableList<ChatResponse>) {
         chatsList = chats

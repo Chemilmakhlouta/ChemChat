@@ -42,14 +42,14 @@ class LatestChatsAdapter(private val context: Context) : RecyclerView.Adapter<Re
     override fun getItemCount(): Int = chatsList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return chatListItemViewHolder(LayoutInflater.from(context).inflate(R.layout.item_latest_chat, parent, false))
+        return ChatListItemViewHolder(LayoutInflater.from(context).inflate(R.layout.item_latest_chat, parent, false))
     }
 
     fun setchatsListItemClickListener(listener: OnchatsListItemClickListener) {
         listItemClickListener = listener
     }
 
-    private class chatListItemViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    private class ChatListItemViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     interface OnchatsListItemClickListener {
         fun onchatsItemClicked(id: String?)

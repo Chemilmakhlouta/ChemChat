@@ -15,7 +15,7 @@ import chemilmakhlouta.chemchatapp.presentation.chats.presenter.SelectRecipientP
 import kotlinx.android.synthetic.main.activity_users.*
 import javax.inject.Inject
 
-class SelectRecipientActivity : BaseActivity(), SelectRecipientPresenter.Display, SelectRecipientPresenter.Router, RecipientAdapter.onUserItemClickedListener {
+class SelectRecipientActivity : BaseActivity(), SelectRecipientPresenter.Display, SelectRecipientPresenter.Router, RecipientAdapter.OnUserItemClickedListener {
 
     companion object {
         fun makeIntent(context: Context): Intent =
