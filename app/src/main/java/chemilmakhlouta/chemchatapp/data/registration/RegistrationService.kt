@@ -15,7 +15,6 @@ import javax.inject.Inject
 /**
  * Created by Chemil Makhlouta on 15/01/19.
  */
-
 class RegistrationService @Inject constructor() : RegistrationRepository {
     override fun register(email: String, password: String): Completable {
         return Completable.create { subscriber ->

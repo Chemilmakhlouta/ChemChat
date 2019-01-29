@@ -7,8 +7,10 @@ import chemilmakhlouta.chemchatapp.application.callbackinterfaces.ModelCallBack
 import chemilmakhlouta.chemchatapp.data.chats.model.ChatManager
 import chemilmakhlouta.chemchatapp.data.chats.model.ChatResponse
 import chemilmakhlouta.chemchatapp.domain.chats.usecase.SendChatUseCase
+import chemilmakhlouta.chemchatapp.domain.registration.usecase.UploadImageUseCase
 import com.google.firebase.database.DataSnapshot
 import io.reactivex.Completable
+import io.reactivex.Single
 import io.reactivex.disposables.Disposables
 import java.util.ArrayList
 import javax.inject.Inject
@@ -16,7 +18,8 @@ import javax.inject.Inject
 /**
  * Created by Chemil Makhlouta on 24/7/18.
  */
-class ChatListPresenter @Inject constructor(private val sendChatUseCase: SendChatUseCase) : Presenter, FirebaseCallBack, ModelCallBack {
+class ChatListPresenter @Inject constructor(private val sendChatUseCase: SendChatUseCase,
+                                            private val uploadImageUseCase: UploadImageUseCase) : Presenter, FirebaseCallBack, ModelCallBack {
 
     private lateinit var display: Display
     private lateinit var router: Router
@@ -24,9 +27,13 @@ class ChatListPresenter @Inject constructor(private val sendChatUseCase: SendCha
     private lateinit var toUserId: String
 
     private var chatsList: ArrayList<ChatResponse> = ArrayList<ChatResponse>()
+    private lateinit var selectedImageUri: Uri
 
     private var sendChatObservable: Completable? = null
     private var sendChatSubscription = Disposables.disposed()
+
+    private var uploadImageObservable: Single<String>? = null
+    private var uploadImageSubscription = Disposables.disposed()
 
     // region lifecycle
     fun inject(display: Display, router: Router) {
@@ -73,9 +80,26 @@ class ChatListPresenter @Inject constructor(private val sendChatUseCase: SendCha
         }
     }
 
+    private fun sendImage() {
+        if (uploadImageObservable == null) {
+            uploadImageObservable = uploadImageUseCase.uploadImage(selectedImageUri)
+                    .doAfterTerminate {
+                        uploadImageObservable = null
+                    }
+
+            subscribeToUploadImage()
+        }
+    }
+
     private fun subscribeToSendChat() {
         sendChatObservable?.let {
             sendChatSubscription = it.subscribe(this::onSendChatSuccess, this::onSendChatFailure)
+        }
+    }
+
+    private fun subscribeToUploadImage() {
+        uploadImageObservable?.let {
+            uploadImageSubscription = it.subscribe(this::onUploadImageSuccess, this::onUploadImageFailure)
         }
     }
 
@@ -86,19 +110,27 @@ class ChatListPresenter @Inject constructor(private val sendChatUseCase: SendCha
     private fun onSendChatFailure(throwable: Throwable) {
         display.showError(throwable.message!!)
     }
-    // endregion
 
-    // region public functions
-    fun removeChatListener() {
+    private fun onUploadImageSuccess(imageUrl: String) {
+        display.clearTextAndScroll()
+    }
+
+    private fun onUploadImageFailure(throwable: Throwable) {
+        display.showError(throwable.message!!)
+    }
+
+    private fun removeChatListener() {
         ChatManager.getInstance(toUserId, this)!!.removeListener()
         ChatManager.getInstance(toUserId, this)!!.destroy()
     }
+    // endregion
 
+    // region public functions
     fun onIntentReceived(toUserId: String) {
         this.toUserId = toUserId
     }
 
-    fun onSendChatClicked(message: String) {
+    fun onSendChatClicked(message: String, selectedImageUri: Uri) {
         if (message.isEmpty()) {
             display.showError("Enter some text!")
         } else {
@@ -107,6 +139,9 @@ class ChatListPresenter @Inject constructor(private val sendChatUseCase: SendCha
     }
 
     fun onPhotoSelected(selectedImageUri: Uri) {
+        this.selectedImageUri = selectedImageUri
+
+        sendImage()
         display.showSelectedImage(selectedImageUri)
     }
 
