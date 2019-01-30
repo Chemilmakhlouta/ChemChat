@@ -130,7 +130,7 @@ class ChatListPresenter @Inject constructor(private val sendChatUseCase: SendCha
         this.toUserId = toUserId
     }
 
-    fun onSendChatClicked(message: String, selectedImageUri: Uri) {
+    fun onSendChatClicked(message: String) {
         if (message.isEmpty()) {
             display.showError("Enter some text!")
         } else {
