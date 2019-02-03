@@ -42,7 +42,7 @@ kapt {
 }
 
 allOpen {
-    annotation("chemilmakhlouta.seekapp.application.injection.annotation.Mockable")
+    annotation("chemilmakhlouta.chemchatapp.application.injection.annotation.Mockable")
 }
 
 dependencies {
@@ -58,13 +58,10 @@ dependencies {
             "com.android.support:customtabs:$androidSupportVersion",
             "org.jetbrains.kotlin:kotlin-stdlib:1.1.1"
 
-    // Dagger (for dependency injection)
     compile 'com.google.firebase:firebase-core:16.0.0'
     compile 'com.google.firebase:firebase-auth:16.0.2'
     compile 'com.google.firebase:firebase-storage:16.0.1'
     compile 'com.google.firebase:firebase-database:16.0.1'
-
-    compile 'com.xwray:groupie:2.1.0'
 
     // rxJava
     compile "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
